@@ -175,15 +175,15 @@ export default {
                         const usuario = new Usuario(input);
                         const result = await usuario.save();
                         var transporte = nodemailer.createTransport({
-                            host: "smtp.gmail.com",
-                            port: 587,
+                            host: process.env.NODEMAILER_HOST,
+                            port: process.env.NODEMAILER_PORT,
                             auth: {
-                                user: "ingbethelpruebas@gmail.com",
-                                pass: "jjrwkknbhnavmnkb"
+                                user: process.env.NODEMAILER_USER,
+                                pass: process.env.NODEMAILER_PASS
                             }
                         })
                         var mailOptions = {
-                            from: 'ingbethelpruebas@gmail.com',
+                            from: process.env.NODEMAILER_HOST,
                             to: input.correos[0].email,
                             subject: "Bienvenido/a",
                             html: crearMensajeClave(usuario.nombre, clave)
@@ -337,11 +337,11 @@ export default {
                 })
                 if (band) {
                     var transporte = nodemailer.createTransport({
-                        host: "smtp.gmail.com",
-                        port: 587,
+                        host: process.env.NODEMAILER_HOST,
+                        port: process.env.NODEMAILER_PORT,
                         auth: {
-                            user: "ingbethelpruebas@gmail.com",
-                            pass: "jjrwkknbhnavmnkb"
+                            user: process.env.NODEMAILER_USER,
+                            pass: process.env.NODEMAILER_PASS
                         }
                     })
                     transporte.verify()

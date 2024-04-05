@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 server.applyMiddleware({ app });
 
-mongoose.connect('mongodb+srv://usr_faro_admin:FARO6eZk348ERnLz2023@clusterfaro.bqiflf2.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, dbName: 'dev' }).then(
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, dbName: 'dev' }).then(
     () => {
         console.log('Database connected')
         app.listen(
