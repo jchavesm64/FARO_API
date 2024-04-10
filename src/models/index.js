@@ -25,6 +25,12 @@ import ModuloConsecutivo from './ModuloConsecutivo';
 import HistorialConsecutivo from './HistorialConsecutivo';
 import Activo from './Activos';
 import MovimientosActivo from './MovimientosActivo';
+import Comanda from './Comanda';
+import Mesa from './Mesa';
+import Piso from './Piso';
+import Subcuenta from './Subcuenta';
+import TipoMesa from './TipoMesa';
+import TipoMetodoPago from './TipoMetodoPago';
 
 export {
     Rol,
@@ -53,5 +59,11 @@ export {
     ModuloConsecutivo,
     HistorialConsecutivo,
     Activo,
-    MovimientosActivo
+    MovimientosActivo,
+    Comanda,
+    Mesa,
+    Piso,
+    Subcuenta,
+    TipoMesa,
+    TipoMetodoPago
 };
