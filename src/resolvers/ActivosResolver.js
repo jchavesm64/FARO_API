@@ -82,6 +82,7 @@ export default {
                     message: "Se registro correctamente el activo"
                 }
             } catch (error) {
+                console.log(error)
                 return error;
             }
         },
