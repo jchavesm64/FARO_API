@@ -16,7 +16,9 @@ const shared = gql`
     }
 
     type Telefono{
-        telefono: String
+        telefono: String,
+        descripcion: String,
+        extension: String
     }
 
     input EmailInput{
@@ -29,7 +31,9 @@ const shared = gql`
     }
 
     input TelefonoInput{
-        telefono: String
+        telefono: String,
+        descripcion: String,
+        extension: String
     }
 
     type MateriaPrimaMovimientos{
