@@ -43,7 +43,7 @@ const materia_prima_type = gql`
         descripcion: String
         precioCompra: Number
         precioCostoPromedio: Number
-        precioVenta: Number
+        margen: Number
         impuestos: [LineaImpuestos]
     }
 
@@ -61,7 +61,7 @@ const materia_prima_type = gql`
         descripcion: String
         precioCompra: Number
         precioCostoPromedio: Number
-        precioVenta: Number
+        margen: Number
         impuestos: [LineaImpuestos]
         movimientos: [MovimientosType]
     }
@@ -86,7 +86,7 @@ const materia_prima_type = gql`
         descripcion: String
         precioCompra: Number
         precioCostoPromedio: Number
-        precioVenta: Number
+        margen: Number
         impuestos: [LineaImpuestosInput]
     }
 

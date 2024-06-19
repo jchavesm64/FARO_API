@@ -15,11 +15,11 @@ const MovimientosActivoSchema = new mongose.Schema({
         require: true,
         trim: true
     },
-    activo: {
+    activos: [{
         type: mongose.Schema.Types.ObjectId,
         ref: 'activo',
         require: true
-    },
+    }],
     consecutivo: {
         type: mongose.Schema.Types.ObjectId,
         ref: 'HistorialConsecutivo',

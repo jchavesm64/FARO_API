@@ -5,6 +5,7 @@ const cliente_type = gql`
     type Cliente{
         id: ID
         nombre: String
+        nombreFacturacion: String
         tipo: String
         codigo: String
         pais: String
@@ -27,6 +28,7 @@ const cliente_type = gql`
     input ClienteInput{
         tipo: String
         nombre: String
+        nombreFacturacion: String
         codigo: String
         pais: String
         ciudad: String

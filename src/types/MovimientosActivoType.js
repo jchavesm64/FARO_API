@@ -11,7 +11,7 @@ const movimientos_activo_type = gql`
         tipo: Tipo
         beneficiario: String
         fecha: Date
-        activo: Activo
+        activos: [Activo]
         consecutivo: HistorialConsecutivo
     }
 
@@ -25,7 +25,7 @@ const movimientos_activo_type = gql`
         tipo: Tipo
         beneficiario: String
         fecha: Date
-        activo: ID
+        activos: [ID]
         cedula: String
     }
 

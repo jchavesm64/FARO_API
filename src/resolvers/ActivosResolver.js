@@ -4,16 +4,9 @@ export default {
     Query: {
         obtenerActivos: async (_, { }) => {
             try {
-                const activos = await Activo.find({ estado: 'ACTIVO' });
-                return activos.sort(function (a, b) {
-                    if (a.nombre.toLowerCase() > b.nombre.toLowerCase()) {
-                        return 1
-                    }
-                    if (a.nombre.toLowerCase() < b.nombre.toLowerCase()) {
-                        return -1
-                    }
-                    return 0;
-                });
+                const activos = await Activo.find({ estado: 'ACTIVO' })
+                    .sort({ fechaRegistro: -1, nombre: 1, referenciaInterna: 1 });
+                return activos;
             } catch (error) {
                 return error;
             }
@@ -29,7 +22,7 @@ export default {
         obtenerActivoConMovimientos: async (_, { id }) => {
             try {
                 const activo = await Activo.findById(id);
-                const movimientos = await MovimientosActivo.find({ activo: id }).populate('consecutivo');
+                const movimientos = await MovimientosActivo.find({ activos: id }).populate('consecutivo');
                 activo.movimientos = movimientos;
                 return activo;
             } catch (error) {
@@ -41,7 +34,7 @@ export default {
                 let activosmovimientos = []
                 const activos = await Activo.find({ estado: 'ACTIVO' });
                 activos.map(item => {
-                    const result = MovimientosActivo.find({ activo: item.id }).populate('consecutivo')
+                    const result = MovimientosActivo.find({ activos: item.id }).populate('consecutivo')
                     activosmovimientos.push({
                         activo: item,
                         movimientos: result

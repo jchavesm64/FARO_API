@@ -1,45 +1,45 @@
 const mongose = require('mongoose');
 
 const MateriasPrimasSchema = new mongose.Schema({
-    nombre:{
+    nombre: {
         type: String,
         require: true,
         trim: true,
     },
-    pais:{
+    pais: {
         type: String,
         require: true,
         trim: true
     },
-    unidad:{
+    unidad: {
         type: String,
         require: true,
         trim: true
     },
-    existencias:{
+    existencias: {
         type: Number,
         require: true
     },
-    estado:{
+    estado: {
         type: String,
         require: true,
         trim: true,
     },
-    tipo:{
+    tipo: {
         type: String,
         require: true,
         trim: true
     },
-    referenciaInterna:{
+    referenciaInterna: {
         type: String,
     },
-    codigoBarras:{
+    codigoBarras: {
         type: String,
     },
-    codigoCabys:{
+    codigoCabys: {
         type: String,
     },
-    descripcion:{
+    descripcion: {
         type: String,
     },
     precioCompra: {
@@ -48,7 +48,7 @@ const MateriasPrimasSchema = new mongose.Schema({
     precioCostoPromedio: {
         type: Number
     },
-    precioVenta: {
+    margen: {
         type: Number
     },
     impuestos: {
