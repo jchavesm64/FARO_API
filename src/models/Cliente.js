@@ -1,69 +1,74 @@
 const mongoose = require('mongoose');
 
 const ClientesSchema = new mongoose.Schema({
-    tipo:{
+    tipo: {
         type: String,
         enum: ['Físico', 'Jurídico', 'Pasaporte'],
         require: true,
         trim: true,
     },
-    nombre:{
+    nombre: {
         type: String,
         require: true,
         trim: true,
     },
-    codigo:{
-        type: String,
-        require: true,
-        trim: true
-    },
-    pais:{
+    nombreFacturacion: {
         type: String,
         require: true,
         trim: true,
     },
-    ciudad:{
+    codigo: {
+        type: String,
+        require: true,
+        trim: true
+    },
+    pais: {
         type: String,
         require: true,
         trim: true,
     },
-    city:{
-        type:String,
-        require: true,
-        trim: true
-    },
-    calle:{
-        type:String,
-        require: true,
-        trim: true
-    },
-    cp:{
-        type:String,
-        require: true,
-        trim: true
-    },
-    direccion:{
+    ciudad: {
         type: String,
         require: true,
         trim: true,
     },
-    telefonos:{
+    city: {
+        type: String,
+        require: true,
+        trim: true
+    },
+    calle: {
+        type: String,
+        require: true,
+        trim: true
+    },
+    cp: {
+        type: String,
+        require: true,
+        trim: true
+    },
+    direccion: {
+        type: String,
+        require: true,
+        trim: true,
+    },
+    telefonos: {
         type: Array,
         require: true,
         trim: true
     },
-    correos:{
+    correos: {
         type: Array,
         require: true,
         trim: true
     },
-    redes:{
+    redes: {
         type: Array,
         require: true,
         trim: true
     },
-    estado:{
-        type:String,
+    estado: {
+        type: String,
         require: true,
         trim: true
     }
