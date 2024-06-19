@@ -7,16 +7,11 @@ export default {
     Query: {
         obtenerMovimientosActivos: async (_, { }) => {
             try {
-                const movimientos = await MovimientosActivo.find({}).populate('consecutivo').populate('activo');
-                return movimientos.sort(function (a, b) {
-                    if (a.consecutivo.consecutivo < b.consecutivo.consecutivo) {
-                        return 1;
-                    }
-                    if (a.consecutivo.consecutivo > b.consecutivo.consecutivo) {
-                        return -1;
-                    }
-                    return 0;
-                });
+                const movimientos = await MovimientosActivo.find({})
+                    .populate('consecutivo')
+                    .populate('activos')
+                    .sort({ consecutivo: -1 });
+                return movimientos;
             } catch (error) {
                 return error;
             }
@@ -49,7 +44,6 @@ export default {
 
                 const result = await movimientoActivo.save();
                 await result.populate('activo').populate('consecutivo').execPopulate();
-                console.log(result);
 
                 return {
                     estado: true,
