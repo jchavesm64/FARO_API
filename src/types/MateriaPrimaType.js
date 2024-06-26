@@ -8,6 +8,7 @@ const materia_prima_type = gql`
     enum TipoMateriaPrima{
         Hotel
         Restaurante
+        RESTAURANTE
         Tienda
     }   
 

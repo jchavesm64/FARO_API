@@ -24,6 +24,7 @@ import TransferenciaInternaLinea from './TransferenciaInternaLinea';
 import ModuloConsecutivo from './ModuloConsecutivo';
 import HistorialConsecutivo from './HistorialConsecutivo';
 import Activo from './Activos';
+import FacturasParametros from './FacturasParametros';
 import MovimientosActivo from './MovimientosActivo';
 
 export {
@@ -53,5 +54,6 @@ export {
     ModuloConsecutivo,
     HistorialConsecutivo,
     Activo,
+    FacturasParametros,
     MovimientosActivo
 };
