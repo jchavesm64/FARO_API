@@ -25,6 +25,7 @@ import ModuloConsecutivo from './ModuloConsecutivo';
 import HistorialConsecutivo from './HistorialConsecutivo';
 import Activo from './Activos';
 import FacturasParametros from './FacturasParametros';
+import FacturasEmitidas from './FacturasEmitidas';
 import MovimientosActivo from './MovimientosActivo';
 
 export {
@@ -55,5 +56,6 @@ export {
     HistorialConsecutivo,
     Activo,
     FacturasParametros,
-    MovimientosActivo
+    MovimientosActivo,
+    FacturasEmitidas
 };

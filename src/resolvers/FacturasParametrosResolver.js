@@ -10,6 +10,14 @@ export default {
                 return error;
             }
         },
+        obtenerFacturasParametros: async (_, {}) => {
+            try {
+                const parametros = await FacturasParametros.find();
+                return parametros;
+            } catch (error) {
+                return error;
+            }
+        },
     }
 }
 

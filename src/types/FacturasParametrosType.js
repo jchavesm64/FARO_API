@@ -10,6 +10,7 @@ const facturas_parametros_type = gql`
 
     type Query{
         obtenerFacturasParametrosByType(type: String): [FacturasParametro]
+        obtenerFacturasParametros: [FacturasParametro]
     }
 
 `;
