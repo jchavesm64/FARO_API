@@ -25,6 +25,12 @@ import ModuloConsecutivo from './ModuloConsecutivo';
 import HistorialConsecutivo from './HistorialConsecutivo';
 import Activo from './Activos';
 import MovimientosActivo from './MovimientosActivo';
+import Comodidades from './Comodidades';
+import TipoHabitacion from './TipoHabitacion';
+import Servicios from './Servicios';
+import Habitaciones from './Habitaciones';
+import Reservas from './Reservas';
+import ReservaHabitacion from './ReservaHabitacion';
 
 export {
     Rol,
@@ -53,5 +59,11 @@ export {
     ModuloConsecutivo,
     HistorialConsecutivo,
     Activo,
-    MovimientosActivo
+    MovimientosActivo,
+    Comodidades,
+    TipoHabitacion,
+    Servicios,
+    Habitaciones,
+    Reservas,
+    ReservaHabitacion
 };

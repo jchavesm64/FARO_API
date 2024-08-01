@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const mongoose = require('mongoose');
 
-const MovimientosActivoSchema = new mongose.Schema({
+const MovimientosActivoSchema = new mongoose.Schema({
     tipo: {
         type: String,
         require: true,
@@ -16,15 +16,15 @@ const MovimientosActivoSchema = new mongose.Schema({
         trim: true
     },
     activos: [{
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'activo',
         require: true
     }],
     consecutivo: {
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'HistorialConsecutivo',
         require: true
     },
 });
 
-module.exports = mongose.model('movimientosActivo', MovimientosActivoSchema);
+module.exports = mongoose.model('movimientosActivo', MovimientosActivoSchema);
