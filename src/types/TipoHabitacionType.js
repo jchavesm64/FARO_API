@@ -22,13 +22,13 @@ const tipoHabitacion_type = gql`
     }
 
     type Query{
-        obtenerTipoHabitaciones: [TipoHabitacion]
-        obtenerTipoHabitacion(id:ID): TipoHabitacion
+        obtenerTiposHabitaciones: [TipoHabitacion]
+        obtenerTipoHabitacionById(id:ID): TipoHabitacion
     }
 
     type Mutation{
-        insertarTipoHabitacion(input: ComodidadesInput):RespuestaTipoHabitacion
-        actualizarTipoHabitacion(id: ID, input: ComodidadesInput):RespuestaTipoHabitacion
+        insertarTipoHabitacion(input: TipoHabitacionInput):RespuestaTipoHabitacion
+        actualizarTipoHabitacion(id: ID, input: TipoHabitacionInput):RespuestaTipoHabitacion
         desactivarTipoHabitacion(id: ID):RespuestaTipoHabitacion
     }
 

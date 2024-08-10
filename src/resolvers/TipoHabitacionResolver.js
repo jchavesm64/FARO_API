@@ -3,7 +3,7 @@ import { TipoHabitacion } from "../models";
 export default {
     
     Query: {
-        obtenerTipoHabitaciones: async (_, { }) => {
+        obtenerTiposHabitaciones: async (_, { }) => {
             try {
                 const tipoHabitacion = await TipoHabitacion.find({ estado: 'ACTIVO' });
                 return tipoHabitacion;
@@ -11,7 +11,7 @@ export default {
                 return error;
             }
         },
-        obtenerTipoHabitacion: async (_, { id }) => {
+        obtenerTipoHabitacionById: async (_, { id }) => {
             try {
                 const tipoHabitacion = await TipoHabitacion.findById(id);
                 return tipoHabitacion;
