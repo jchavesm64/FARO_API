@@ -30,8 +30,10 @@ export default {
     Mutation: {
         insertarHabitacion: async (_, { input }) => {
             try {
+                console.log(input)
                 const { numeroHabitacion } = input
-                const existe = await Habitaciones.find({ numeroHabitacion })
+                const existe = await Habitaciones.findOne({ numeroHabitacion })
+                console.log(existe)
                 if (existe) {
                     return {
                         estado: true,
