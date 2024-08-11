@@ -12,7 +12,7 @@ const habitaciones_type = gql`
         estado: String
     }
     input HabitacionesInput{
-        numeroHabitacion: ID
+        numeroHabitacion: String
         tipoHabitacion: ID
         precioPorNoche: Number
         descripcion: String
