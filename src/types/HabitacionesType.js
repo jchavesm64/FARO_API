@@ -16,7 +16,7 @@ const habitaciones_type = gql`
         tipoHabitacion: ID
         precioPorNoche: Number
         descripcion: String
-        comodidades:[ComodidadesInput]
+        comodidades:[ID]
         estado: String
     }
 
@@ -28,7 +28,7 @@ const habitaciones_type = gql`
 
     type Query{
         obtenerHabitaciones:[Habitaciones]
-        obtenerHabitacion(id:ID): Habitaciones
+        obtenerHabitacionById(id:ID): Habitaciones
         obteberHabitacionesDisponibles: [Habitaciones]
     }
 

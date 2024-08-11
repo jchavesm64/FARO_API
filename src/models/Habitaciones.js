@@ -21,14 +21,13 @@ const HabitacionSchema = new mongoose.Schema({
         trim: true,
     },
     comodidades: [{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: 'comodidades'
     }],
     estado: {
         type: String,
         require: true,
-        enum: ['Disponible', 'Ocupada', 'Mantenimineto', 'Servicio','Desmantelada'],
+        enum: ['Disponible', 'Ocupada', 'Mantenimineto', 'Servicio', 'Desmantelada'],
         trim: true,
     }
 

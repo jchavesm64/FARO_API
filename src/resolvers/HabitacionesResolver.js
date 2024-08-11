@@ -4,13 +4,13 @@ export default {
     Query: {
         obtenerHabitaciones: async (_, { }) => {
             try {
-                const habitaciones = await Habitaciones.find();
+                const habitaciones = await Habitaciones.find().populate('tipoHabitacion');
                 return habitaciones;
             } catch (error) {
                 return error;
             }
         },
-        obtenerHabitacion: async (_, { id }) => {
+        obtenerHabitacionById: async (_, { id }) => {
             try {
                 const habitaciones = await Habitaciones.findById({ id });
                 return habitaciones;
@@ -30,10 +30,8 @@ export default {
     Mutation: {
         insertarHabitacion: async (_, { input }) => {
             try {
-                console.log(input)
                 const { numeroHabitacion } = input
                 const existe = await Habitaciones.findOne({ numeroHabitacion })
-                console.log(existe)
                 if (existe) {
                     return {
                         estado: true,
