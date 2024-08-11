@@ -4,7 +4,10 @@ export default {
     Query: {
         obtenerHabitaciones: async (_, { }) => {
             try {
-                const habitaciones = await Habitaciones.find().populate('tipoHabitacion');
+                const habitaciones = await Habitaciones.find()
+                    .populate('tipoHabitacion')
+                    .populate({path: 'comodidades'});
+                console.log(habitaciones)
                 return habitaciones;
             } catch (error) {
                 return error;
