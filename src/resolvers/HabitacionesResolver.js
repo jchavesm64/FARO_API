@@ -14,10 +14,9 @@ export default {
         },
         obtenerHabitacionById: async (_, { id }) => {
             try {
-                const habitaciones = await Habitaciones.findById({ id })
+                const habitaciones = await Habitaciones.findById(id)
                     .populate('tipoHabitacion')
                     .populate({ path: 'comodidades' });
-                console.log(habitaciones)
                 return habitaciones;
             } catch (error) {
                 return error;
@@ -61,7 +60,9 @@ export default {
         },
         actualizarHabitacion: async (_, { id, input }) => {
             try {
+
                 const habitacion = await Habitaciones.findByIdAndUpdate({ _id: id }, input, { new: true })
+                console.log(habitacion)
                 return {
                     estado: true,
                     data: habitacion,
