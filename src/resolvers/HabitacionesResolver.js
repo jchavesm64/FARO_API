@@ -6,8 +6,7 @@ export default {
             try {
                 const habitaciones = await Habitaciones.find()
                     .populate('tipoHabitacion')
-                    .populate({path: 'comodidades'});
-                console.log(habitaciones)
+                    .populate({ path: 'comodidades' });
                 return habitaciones;
             } catch (error) {
                 return error;
@@ -15,7 +14,10 @@ export default {
         },
         obtenerHabitacionById: async (_, { id }) => {
             try {
-                const habitaciones = await Habitaciones.findById({ id });
+                const habitaciones = await Habitaciones.findById({ id })
+                    .populate('tipoHabitacion')
+                    .populate({ path: 'comodidades' });
+                console.log(habitaciones)
                 return habitaciones;
             } catch (error) {
                 return error;
