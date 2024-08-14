@@ -24,7 +24,9 @@ export default {
         },
         obteberHabitacionesDisponibles: async (_, { }) => {
             try {
-                const habitaciones = await Habitaciones.find({ estado: 'Diponible' });
+                const habitaciones = await Habitaciones.find({ estado: 'Disponible' })
+                    .populate('tipoHabitacion')
+                    .populate({ path: 'comodidades' });
                 return habitaciones;
             } catch (error) {
                 return error;
