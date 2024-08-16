@@ -29,7 +29,7 @@ const habitaciones_type = gql`
     type Query{
         obtenerHabitaciones:[Habitaciones]
         obtenerHabitacionById(id:ID): Habitaciones
-        obteberHabitacionesDisponibles: [Habitaciones]
+        obtenerHabitacionesDisponibles: [Habitaciones]
     }
 
     type Mutation{

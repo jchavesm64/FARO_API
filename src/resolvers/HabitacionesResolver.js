@@ -22,11 +22,12 @@ export default {
                 return error;
             }
         },
-        obteberHabitacionesDisponibles: async (_, { }) => {
+        obtenerHabitacionesDisponibles: async (_, { }) => {
             try {
                 const habitaciones = await Habitaciones.find({ estado: 'Disponible' })
                     .populate('tipoHabitacion')
                     .populate({ path: 'comodidades' });
+
                 return habitaciones;
             } catch (error) {
                 return error;
