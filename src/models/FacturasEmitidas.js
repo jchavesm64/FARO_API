@@ -263,6 +263,10 @@ const FacturasEmitidasSchema = new mongoose.Schema({
       type: DocElectronicosSchema,
       require: false,
     }]
+  },
+  items: {
+    type: mongoose.Mixed,
+    require: false,
   }
 });
 

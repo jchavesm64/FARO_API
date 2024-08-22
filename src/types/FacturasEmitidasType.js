@@ -2,6 +2,8 @@ const { gql } = require('apollo-server-express');
 
 const facturas_emitidas = gql`
 
+    scalar JSON
+
     type Receptor {
         Nombre: String
         IdentificacionTipo: String
@@ -64,7 +66,7 @@ const facturas_emitidas = gql`
     type DocElectronicos {
         Encabezado: Encabezado
         LineasDetalle: [LineasDetalle]
-        InformacionReferencia: String
+        InformacionReferencia: JSON
     }
 
     type Data {
@@ -87,6 +89,7 @@ const facturas_emitidas = gql`
         result: Boolean
         response: FacturaEmitidaResponse
         data: Data
+        items: JSON
     }
 
     type Query {
