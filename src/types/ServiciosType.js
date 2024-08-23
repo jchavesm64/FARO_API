@@ -13,6 +13,7 @@ const servicios_type = gql`
     input ServiciosInput{
         nombre: String
         descripcion: String
+        precio: Number
         estado: String
     }
     type RespuestaServicios{
