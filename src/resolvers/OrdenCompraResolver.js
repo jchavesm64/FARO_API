@@ -9,16 +9,13 @@ export default {
     Query: {
         obtenerOrdenesCompra: async (_, { filtro }) => {
             try {
-                const ordenes = await OrdenCompra.find({ estado: 'ACTIVO' }).populate({ path: 'consecutivo' }).populate('proveedor').populate('lineasPedido');
-                return ordenes.sort(function (a, b) {
-                    if (a.fechaPedido < b.fechaPedido) {
-                        return 1
-                    }
-                    if (a.fechaPedido > b.fechaPedido) {
-                        return -1
-                    }
-                    return 0;
-                });
+                const ordenes = await OrdenCompra.find({ estado: 'ACTIVO' })
+                    .populate({ path: 'consecutivo' })
+                    .populate('proveedor')
+                    .populate('lineasPedido')
+                    .sort({ fechaPedido: -1, consecutivo: -1 });
+
+                return ordenes;
             } catch (error) {
                 return error;
             }
@@ -66,8 +63,6 @@ export default {
                 await OrdenCompra.findOneAndUpdate({ _id: orden._id }, {
                     lineasPedido: lineasIds
                 }, { new: true });
-
-                console.log(result);
                 return {
                     estado: true,
                     data: result,
@@ -192,7 +187,6 @@ export default {
                             const resLineaRecepcion = await lineaRecepcion.save();
                         }
                     }
-                    console.log(res);
                 }
 
                 return {
