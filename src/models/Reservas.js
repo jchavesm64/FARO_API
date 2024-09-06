@@ -6,11 +6,6 @@ const ReservasSchema = new mongoose.Schema({
         require: true,
         ref: 'clientes'
     },
-    reservaHabitacion: [{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: 'reservaHabitacion'
-    }],
     fechaReserva: {
         type: Date,
         require: true,
@@ -24,9 +19,8 @@ const ReservasSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
-    serviciosGrupal:[{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
+    serviciosGrupal: [{
+        type: [mongoose.Schema.Types.ObjectId],
         ref: 'servicios'
     }],
     estado: {

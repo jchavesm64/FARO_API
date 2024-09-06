@@ -2,10 +2,37 @@ const mongoose = require('mongoose');
 
 const ReservaHabitacionSchema = new mongoose.Schema({
     cliente: [{
+        nombre: {
+            type: String,
+            trim: true,
+        },
+        nombreFacturacion: {
+            type: String,
+            trim: true,
+        },
+        codigo: {
+            type: String,
+            trim: true
+        },
+        pais: {
+            type: String,
+            trim: true,
+        },
+        telefono: {
+            type: String,
+            trim: true,
+        },
+        correo: {
+            type: String,
+            trim: true,
+        }
+
+    }],
+    reserva: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,
-        ref: 'clientes'
-    }],
+        ref: 'reservas'
+    },
     habitacion: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,

@@ -3,7 +3,6 @@ const { gql } = require('apollo-server-express');
 const Reservas_type = gql`
     type Reserva{
         id:ID
-        reservaHabitacion: [ReservaHabitacion]
         fecha:String
         numeroPersonas: Number
         total: Number
@@ -12,12 +11,19 @@ const Reservas_type = gql`
     }
     
     input ReservaInput {
-        reservaHabitacion: [ID]
-        fecha:String
+        cliente: ID
+        fechaReserva:String
         numeroPersonas: Number
         total: Number
-        servicioGrupal:[ID]
+        serviciosGrupal:[ID]
         estado:String
+    }
+        
+    input ReservaHabitacionInput{
+        habitaciones: [ID]
+        fechaEntrada: String
+        fechaSalida: String
+        estado: String
     }
     
     type RespuestaReserva{
@@ -32,7 +38,7 @@ const Reservas_type = gql`
     }
 
     type Mutation{
-        insertarReserva(input: ReservaInput):RespuestaReserva
+        insertarReserva(input: ReservaInput, bookingRoom: ReservaHabitacionInput):RespuestaReserva
         actualizarReserva(id: ID, input: ReservaInput):RespuestaReserva
         desactivarReserva(id: ID):RespuestaReserva
     }

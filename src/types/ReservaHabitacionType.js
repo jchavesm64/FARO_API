@@ -4,6 +4,7 @@ const reservaHabitacion_type = gql`
     type ReservaHabitacion{
         id:ID
         cliente: [Cliente]
+        reserva: Reserva
         habitacion: Habitaciones
         fechaEntrada: String
         fechaSalida: String
@@ -13,7 +14,8 @@ const reservaHabitacion_type = gql`
 
     input ReservaHabitacionInput{
         cliente: [ID]
-        habitacion: ID
+        habitacion: [ID]
+        reservas: ID
         fechaEntrada: String
         fechaSalida: String
         serviciosExtra: [ID]

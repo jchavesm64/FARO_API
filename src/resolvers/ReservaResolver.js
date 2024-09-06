@@ -1,3 +1,4 @@
+import { ReservaHabitacion } from "../models";
 import Reservas from "../models/Reservas";
 
 export default {
@@ -20,16 +21,28 @@ export default {
         }
     },
     Mutation: {
-        insertarReserva: async (_, { input }) => {
+        insertarReserva: async (_, { input, bookingRoom }) => {
             try {
                 const resreva = new Reservas(input)
-                const result = await resreva.save()
+                const result = await resreva.save();
+                for (let i = 0; i < bookingRoom.habitaciones.length; i++) {
+                    const reservaHabitacion = new ReservaHabitacion({
+                        habitacion: bookingRoom.habitaciones[i],
+                        reserva: result.id,
+                        fechaEntrada: bookingRoom.fechaEntrada,
+                        fechaSalida: bookingRoom.fechaSalida,
+                        serviciosExtra: bookingRoom.serviciosExtra,
+                        estado: 'Pendiente'
+                    })
+                    await reservaHabitacion.save();
+                }
                 return {
                     estado: true,
                     data: result,
                     message: "Habición asociada a una reserva"
                 }
             } catch (error) {
+                console.log('data error', error);
                 return {
                     estado: false,
                     data: null,
