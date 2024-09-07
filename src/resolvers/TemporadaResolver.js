@@ -22,7 +22,6 @@ export default {
     Mutation: {
         insertarTemporada: async (_, { input }) => {
             try {
-                console.log(input)
                 const temporada = new Temporada(input);
                 const result = await temporada.save();
                 return {

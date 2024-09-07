@@ -17,7 +17,7 @@ const TipoHabitacionSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        require: true,
+        enum: ['Activo', 'Cancelado'],
         trim: true,
     }
 })

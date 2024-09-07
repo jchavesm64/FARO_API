@@ -1,43 +1,43 @@
-import { TipoHabitacion } from "../models";
+import Tours from "../models/Tours";
+
 
 export default {
-
     Query: {
-        obtenerTiposHabitaciones: async (_, { }) => {
+        obtenerTours: async (_, { }) => {
             try {
-                const tipoHabitacion = await TipoHabitacion.find({ estado: 'ACTIVO' });
-                return tipoHabitacion;
+                const tour = await Tours.find({ estado: 'Activo' });
+                return tour;
             } catch (error) {
                 return error;
             }
         },
-        obtenerTipoHabitacionById: async (_, { id }) => {
+        obtenerTour: async (_, { id }) => {
             try {
-                const tipoHabitacion = await TipoHabitacion.findById(id);
-                return tipoHabitacion;
+                const tour = await Tours.findById(id);
+                return tour;
             } catch (error) {
                 return error;
             }
         }
     },
     Mutation: {
-        insertarTipoHabitacion: async (_, { input }) => {
+        insertarTour: async (_, { input }) => {
             try {
                 const { nombre } = input;
-                const existe = await TipoHabitacion.findOne({ nombre });
+                const existe = await Tours.findOne({ nombre });
                 if (existe) {
                     return {
                         estado: true,
                         data: null,
-                        message: "Ya existe un tipo de habitación con ese nombre"
+                        message: "Ya existe un servicio con ese nombre"
                     }
                 }
-                const tipoHabitacion = new TipoHabitacion(input)
-                const result = await tipoHabitacion.save()
+                const tour = new Tours(input);
+                const result = await tour.save();
                 return {
                     estado: true,
                     data: result,
-                    message: "Tipo de habitación creado"
+                    message: "Tour creado con exito"
                 }
             } catch (error) {
                 return {
@@ -47,36 +47,36 @@ export default {
                 };
             }
         },
-        actualizarTipoHabitacion: async (_, { id, input }) => {
+        actualizarTour: async (_, { id, input }) => {
             try {
-                const tipoHabitacion = await TipoHabitacion.findByIdAndUpdate({ _id: id }, input, { new: true })
+                const tour = await Tours.findOneAndUpdate({ _id: id }, input, { new: true });
                 return {
                     estado: true,
-                    data: tipoHabitacion,
-                    message: "Tipo de habitación actualizada correctamente"
+                    data: tour,
+                    message: "Tour actualizada correctamente"
                 };
             } catch (error) {
                 return {
                     estado: false,
                     data: null,
-                    message: "Ocurrio un error inesperado"
+                    message: "Ocurrio un error inesperado al actualizar el Tour"
                 };
             }
         },
-        desactivarTipoHabitacion: async (_, { id }) => {
+        desactivarTour: async (_, { id }) => {
             try {
-                const tipoHabitacion = await TipoHabitacion.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
-                if (tipoHabitacion) {
+                const tour = await Tours.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                if (tour) {
                     return {
                         estado: true,
                         data: null,
-                        message: "Tipo de habitación eliminado correctamente"
+                        message: "Tour eliminado correctamente"
                     };
                 } else {
                     return {
                         estado: false,
                         data: null,
-                        message: "No se pudo eliminar el tipo de habitación"
+                        message: "No se pudo eliminar la tour"
                     };
                 }
             } catch (error) {
@@ -88,4 +88,4 @@ export default {
             }
         }
     }
-}
+};

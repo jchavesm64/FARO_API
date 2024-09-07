@@ -7,6 +7,10 @@ const TourSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
+    nombre: {
+        type: String,
+        trim: true
+    },
     precio: {
         type: Number,
         require: true
@@ -17,8 +21,7 @@ const TourSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        enum: ['Activo', 'Cancelada'],
-        require: true,
+        enum: ['Activo', 'Cancelado'],
         trim: true,
     }
 });

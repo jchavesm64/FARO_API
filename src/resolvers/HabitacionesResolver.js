@@ -85,7 +85,7 @@ export default {
                 if (habitacion) {
                     return {
                         estado: true,
-                        data: null,
+                        data: habitacion,
                         message: "Habitación eliminada correctamente"
                     };
                 } else {

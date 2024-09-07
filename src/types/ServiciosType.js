@@ -16,6 +16,7 @@ const servicios_type = gql`
         precio: Number
         estado: String
     }
+        
     type RespuestaServicios{
         estado: Boolean
         data: Servicios
