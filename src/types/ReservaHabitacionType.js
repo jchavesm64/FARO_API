@@ -18,7 +18,7 @@ const reservaHabitacion_type = gql`
         reservas: ID
         fechaEntrada: String
         fechaSalida: String
-        serviciosExtra: [ID]
+        serviciosExtra: [servicesExtra]
         estado: String
     }
 

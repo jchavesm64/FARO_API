@@ -20,7 +20,7 @@ const Reservas_type = gql`
     }
         
     input ReservaHabitacionInput{
-        habitaciones: [ID]
+        habitaciones: [servicesExtra]
         fechaEntrada: String
         fechaSalida: String
         estado: String

@@ -27,7 +27,7 @@ const HabitacionSchema = new mongoose.Schema({
     estado: {
         type: String,
         require: true,
-        enum: ['Disponible', 'Ocupada', 'Mantenimineto', 'Servicio', 'Desmantelada'],
+        enum: ['Disponible', 'Reservada', 'Ocupada', 'Mantenimineto', 'Servicio', 'Desmantelada'],
         trim: true,
     }
 

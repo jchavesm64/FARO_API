@@ -1,4 +1,4 @@
-import { ReservaHabitacion } from "../models";
+import { Habitaciones, ReservaHabitacion } from "../models";
 import Reservas from "../models/Reservas";
 
 export default {
@@ -25,15 +25,17 @@ export default {
             try {
                 const resreva = new Reservas(input)
                 const result = await resreva.save();
+                console.log(bookingRoom)
                 for (let i = 0; i < bookingRoom.habitaciones.length; i++) {
                     const reservaHabitacion = new ReservaHabitacion({
-                        habitacion: bookingRoom.habitaciones[i],
+                        habitacion: bookingRoom.habitaciones[i].roomId,
                         reserva: result.id,
                         fechaEntrada: bookingRoom.fechaEntrada,
                         fechaSalida: bookingRoom.fechaSalida,
-                        serviciosExtra: bookingRoom.serviciosExtra,
+                        serviciosExtra: bookingRoom.habitaciones[i].serviceIds,
                         estado: 'Pendiente'
-                    })
+                    });
+                    await Habitaciones.findOneAndUpdate({ _id: bookingRoom.habitaciones[i].roomId }, { estado: 'Reservada' }, { new: true });
                     await reservaHabitacion.save();
                 }
                 return {
