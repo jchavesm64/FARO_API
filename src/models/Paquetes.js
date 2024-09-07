@@ -20,6 +20,10 @@ const PaqueteSchema = new mongoose.Schema({
         require: true,
         trim: true
     },
+    precio: {
+        type: Number,
+        require: true
+    },
     estado: {
         type: String,
         require: true,
