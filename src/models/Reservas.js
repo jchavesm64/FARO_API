@@ -6,6 +6,11 @@ const ReservasSchema = new mongoose.Schema({
         require: true,
         ref: 'clientes'
     },
+    tipo: {
+        type: String,
+        enum: ['Individual', 'Grupales', 'Bloqueo'],
+        trim: true,
+    },
     fechaReserva: {
         type: Date,
         require: true,
