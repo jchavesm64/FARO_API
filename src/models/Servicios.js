@@ -6,9 +6,8 @@ const ServiciosSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
-    decripcion: {
+    descripcion: {
         type: String,
-        require: true,
         trim: true,
     },
     precio: {

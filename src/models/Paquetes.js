@@ -7,6 +7,11 @@ const PaqueteSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
+    nombre: {
+        type: String,
+        require: true,
+        trim: true
+    },
     servicios: [{
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'servicios'
@@ -14,6 +19,10 @@ const PaqueteSchema = new mongoose.Schema({
     tours: [{
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'tour'
+    }],
+    temporadas: [{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'temporada'
     }],
     descripcion: {
         type: String,
@@ -26,8 +35,8 @@ const PaqueteSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        require: true,
-        trim: true
+        enum: ['Activo', 'Cancelado'],
+        trim: true,
     }
 });
 

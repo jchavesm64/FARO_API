@@ -1,43 +1,50 @@
-import { Servicios } from '../models';
+import Paquetes from "../models/Paquetes";
 
 export default {
     Query: {
-        obtenerServicios: async (_, { }) => {
+        obtenerPaquetes: async (_, { }) => {
             try {
-                const servicios = await Servicios.find({ estado: 'ACTIVO' });
-                return servicios;
+                const paquetes = await Paquetes.find()
+                    .populate('servicios')
+                    .populate('tours')
+                    .populate('temporadas');
+                return paquetes;
             } catch (error) {
                 return error;
             }
         },
-        obtenerServicio: async (_, { id }) => {
+        obtenerPaquete: async (_, { id }) => {
             try {
-                const servicios = await Servicios.findById(id);
-                return servicios;
+                const paquetes = await Paquetes.findById(id)
+                    .populate('servicios')
+                    .populate('tours')
+                    .populate('temporadas');
+                return paquetes;
             } catch (error) {
                 return error;
             }
         }
     },
     Mutation: {
-        insertarServicio: async (_, { input }) => {
+        insertarPaquete: async (_, { input }) => {
             try {
+
                 const { nombre } = input;
-                console.log(input)
-                const existe = await Servicios.findOne({ nombre });
+                const existe = await Paquetes.findOne({ nombre });
                 if (existe) {
                     return {
                         estado: true,
                         data: null,
-                        message: "Ya existe un servicio con ese nombre"
+                        message: "Ya existe un paquete con ese nombre"
                     }
                 }
-                const servicio = new Servicios(input)
-                const result = await servicio.save()
+                const paquete = new Paquetes(input);
+                const result = await paquete.save();
+
                 return {
                     estado: true,
                     data: result,
-                    message: "Servicio creado"
+                    message: "Paquete creado"
                 }
             } catch (error) {
                 return {
@@ -47,14 +54,13 @@ export default {
                 };
             }
         },
-        actualizarServicio: async (_, { id, input }) => {
+        actualizarPaquete: async (_, { id, input }) => {
             try {
-                console.log(input)
-                const servicio = await Servicios.findByIdAndUpdate({ _id: id }, input, { new: true })
+                const paquete = await Paquetes.findByIdAndUpdate({ _id: id }, input, { new: true })
                 return {
                     estado: true,
-                    data: servicio,
-                    message: "Servicio actualizado correctamente"
+                    data: paquete,
+                    message: "Paquete actualizada correctamente"
                 };
             } catch (error) {
                 return {
@@ -64,20 +70,20 @@ export default {
                 };
             }
         },
-        desactivarServicio: async (_, { id }) => {
+        desactivarTour: async (_, { id }) => {
             try {
-                const servicio = await Servicios.findOneAndUpdate({ _id: id }, { estado: 'INACTIVO' }, { new: true });
-                if (servicio) {
+                const paquete = await Paquetes.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                if (paquete) {
                     return {
                         estado: true,
-                        data: null,
-                        message: "Servicio eliminado correctamente"
+                        data: paquete,
+                        message: "Paquete eliminado correctamente"
                     };
                 } else {
                     return {
                         estado: false,
                         data: null,
-                        message: "No se pudo eliminar la servicio"
+                        message: "No se pudo eliminar el paquete"
                     };
                 }
             } catch (error) {
@@ -89,4 +95,4 @@ export default {
             }
         }
     }
-}
+};
