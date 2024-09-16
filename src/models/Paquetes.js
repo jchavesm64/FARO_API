@@ -20,10 +20,10 @@ const PaqueteSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'tour'
     }],
-    temporadas: [{
-        type: [mongoose.Schema.Types.ObjectId],
+    temporadas: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'temporada'
-    }],
+    },
     descripcion: {
         type: String,
         require: true,

@@ -7,7 +7,7 @@ const paquetes_type = gql`
         nombre: String
         servicios: [Servicios]
         tours: [Tour]
-        temporadas:[Temporada]
+        temporadas:Temporada
         descripcion: String
         precio: Number
         estado: String
@@ -18,7 +18,7 @@ const paquetes_type = gql`
         nombre: String
         servicios: [ID]
         tours: [ID]
-        temporadas:[ID]
+        temporadas:ID
         descripcion: String
         precio: Number
         estado: String

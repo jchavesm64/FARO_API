@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server-express');
+const GraphQLJSON = require('graphql-type-json');
 
 const temporada_type = gql`
+     scalar JSON
 
     type Temporada{
         id:ID
@@ -9,6 +11,7 @@ const temporada_type = gql`
         tipo: String
         nombre: String
         precio: Number
+        tiposHabitacion: JSON
         descripcion: String
     }
     input TemporadaInput{
@@ -17,6 +20,7 @@ const temporada_type = gql`
         tipo: String
         nombre: String
         precio: Number
+        tiposHabitacion: JSON
         descripcion: String
     }
     type RespuestaTemporada{

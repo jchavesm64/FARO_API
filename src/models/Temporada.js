@@ -26,6 +26,10 @@ const TemporadaSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    tiposHabitacion: {
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
+    },
     descripcion: {
         type: String,
         trim: true
