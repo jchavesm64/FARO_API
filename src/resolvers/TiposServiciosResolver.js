@@ -1,42 +1,42 @@
-import { Servicios } from '../models';
+import TipoServicios from "../models/TipoServicios";
 
 export default {
     Query: {
-        obtenerServicios: async (_, { }) => {
+        obtenerTipoServicio: async (_, { }) => {
             try {
-                const servicios = await Servicios.find({ estado: 'ACTIVO' }).populate('tipo');
-                return servicios;
+                const tipos = await TipoServicios.find({ estado: "Activo" });
+                return tipos;
             } catch (error) {
                 return error;
             }
         },
-        obtenerServicio: async (_, { id }) => {
+        obtenerTipoServicioId: async (_, { id }) => {
             try {
-                const servicios = await Servicios.findById(id).populate('tipo');
-                return servicios;
+                const tipoServicio = await TipoServicios.findById(id);
+                return tipoServicio;
             } catch (error) {
                 return error;
             }
         }
     },
     Mutation: {
-        insertarServicio: async (_, { input }) => {
+        insertarTipoServicio: async (_, { input }) => {
             try {
                 const { nombre } = input;
-                const existe = await Servicios.findOne({ nombre });
+                const existe = await TipoServicios.findOne({ nombre });
                 if (existe) {
                     return {
                         estado: true,
                         data: null,
-                        message: "Ya existe un servicio con ese nombre"
+                        message: "Ya existe un tipo de servicio con ese nombre"
                     }
                 }
-                const servicio = new Servicios(input)
-                const result = await servicio.save()
+                const tipoServicio = new TipoServicios(input)
+                const result = await tipoServicio.save()
                 return {
                     estado: true,
                     data: result,
-                    message: "Servicio creado"
+                    message: "Tipo de servicio creado"
                 }
             } catch (error) {
                 return {
@@ -46,13 +46,13 @@ export default {
                 };
             }
         },
-        actualizarServicio: async (_, { id, input }) => {
+        actualizarTipoServicio: async (_, { id, input }) => {
             try {
-                const servicio = await Servicios.findByIdAndUpdate({ _id: id }, input, { new: true })
+                const tipoServicio = await TipoServicios.findByIdAndUpdate({ _id: id }, input, { new: true })
                 return {
                     estado: true,
-                    data: servicio,
-                    message: "Servicio actualizado correctamente"
+                    data: tipoServicio,
+                    message: "Tipo de servicio actualizado correctamente"
                 };
             } catch (error) {
                 return {
@@ -62,20 +62,20 @@ export default {
                 };
             }
         },
-        desactivarServicio: async (_, { id }) => {
+        desactivarTipoServicio: async (_, { id }) => {
             try {
-                const servicio = await Servicios.findOneAndUpdate({ _id: id }, { estado: 'INACTIVO' }, { new: true });
-                if (servicio) {
+                const tipoServicio = await TipoServicios.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                if (tipoServicio) {
                     return {
                         estado: true,
                         data: null,
-                        message: "Servicio eliminado correctamente"
+                        message: "Tipo de servicio eliminado correctamente"
                     };
                 } else {
                     return {
                         estado: false,
                         data: null,
-                        message: "No se pudo eliminar la servicio"
+                        message: "No se pudo eliminar el tipo de servicio"
                     };
                 }
             } catch (error) {

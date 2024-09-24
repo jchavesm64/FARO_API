@@ -25,7 +25,6 @@ export default {
             try {
                 const resreva = new Reservas(input)
                 const result = await resreva.save();
-                console.log(bookingRoom)
                 for (let i = 0; i < bookingRoom.habitaciones.length; i++) {
                     const reservaHabitacion = new ReservaHabitacion({
                         habitacion: bookingRoom.habitaciones[i].roomId,
@@ -44,7 +43,6 @@ export default {
                     message: "Habición asociada a una reserva"
                 }
             } catch (error) {
-                console.log('data error', error);
                 return {
                     estado: false,
                     data: null,

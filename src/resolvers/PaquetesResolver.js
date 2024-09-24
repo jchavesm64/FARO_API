@@ -19,6 +19,7 @@ export default {
                     .populate('servicios')
                     .populate('tours')
                     .populate('temporadas');
+                
                 return paquetes;
             } catch (error) {
                 return error;

@@ -65,7 +65,7 @@ export default {
             try {
 
                 const habitacion = await Habitaciones.findByIdAndUpdate({ _id: id }, input, { new: true })
-                console.log(habitacion)
+            
                 return {
                     estado: true,
                     data: habitacion,

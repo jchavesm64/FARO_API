@@ -7,6 +7,7 @@ const servicios_type = gql`
         nombre: String
         descripcion: String
         precio: Number
+        tipo: TipoServicio
         estado: String
     }
 
@@ -14,6 +15,7 @@ const servicios_type = gql`
         nombre: String
         descripcion: String
         precio: Number
+        tipo: ID
         estado: String
     }
         
