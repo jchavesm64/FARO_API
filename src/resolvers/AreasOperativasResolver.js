@@ -1,4 +1,4 @@
-import { AreasOperativas } from '../models/AreasOperativas'
+import AreasOperativas from '../models/AreasOperativas'
 
 export default {
     Query: {
@@ -39,6 +39,7 @@ export default {
                     message: "Área creada"
                 }
             } catch (error) {
+                console.log(error)
                 return {
                     estado: false,
                     data: null,
