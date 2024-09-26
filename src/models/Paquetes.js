@@ -35,7 +35,7 @@ const PaqueteSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        enum: ['Activo', 'Cancelado'],
+        enum: ['ACTIVO', 'INACTIVO'],
         trim: true,
     }
 });

@@ -64,7 +64,7 @@ export default {
         },
         desactivarTipoServicio: async (_, { id }) => {
             try {
-                const tipoServicio = await TipoServicios.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                const tipoServicio = await TipoServicios.findOneAndUpdate({ _id: id }, { estado: 'INACTIVO' }, { new: true });
                 if (tipoServicio) {
                     return {
                         estado: true,

@@ -73,7 +73,7 @@ export default {
         },
         desactivarTour: async (_, { id }) => {
             try {
-                const paquete = await Paquetes.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                const paquete = await Paquetes.findOneAndUpdate({ _id: id }, { estado: 'INACTIVO' }, { new: true });
                 if (paquete) {
                     return {
                         estado: true,

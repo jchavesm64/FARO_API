@@ -65,7 +65,7 @@ export default {
         },
         desactivarTipoHabitacion: async (_, { id }) => {
             try {
-                const tipoHabitacion = await TipoHabitacion.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                const tipoHabitacion = await TipoHabitacion.findOneAndUpdate({ _id: id }, { estado: 'INACTIVO' }, { new: true });
                 if (tipoHabitacion) {
                     return {
                         estado: true,

@@ -21,7 +21,7 @@ const ServiciosSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        require: true,
+        enum: ['ACTIVO', 'INACTIVO'],
         trim: true,
     }
 

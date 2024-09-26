@@ -65,7 +65,7 @@ export default {
         },
         desactivarTour: async (_, { id }) => {
             try {
-                const tour = await Tours.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                const tour = await Tours.findOneAndUpdate({ _id: id }, { estado: 'INACTIVO' }, { new: true });
                 if (tour) {
                     return {
                         estado: true,
