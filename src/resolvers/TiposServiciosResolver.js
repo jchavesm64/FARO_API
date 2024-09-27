@@ -4,7 +4,7 @@ export default {
     Query: {
         obtenerTipoServicio: async (_, { }) => {
             try {
-                const tipos = await TipoServicios.find({ estado: "Activo" });
+                const tipos = await TipoServicios.find({ estado: "ACTIVO" });
                 return tipos;
             } catch (error) {
                 return error;

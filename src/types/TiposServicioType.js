@@ -3,15 +3,17 @@ const { gql } = require('apollo-server-express');
 const tipoServicio_type = gql`
     type TipoServicio{
         id: ID
-        nombre: String,
-        cuantificable:String,
+        nombre: String
+        cuantificable:String
+        horadia:String
         estado: Estado
     }
 
     
     input TipoServicioInput{
         nombre: String,
-        cuantificable:Boolean,
+        cuantificable:Boolean
+        horadia:String
         estado: String
     }
         

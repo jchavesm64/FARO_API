@@ -10,7 +10,7 @@ export default {
                 return error;
             }
         },
-        obtenerComodidad: async (_, { id }) => {
+        obtenerComodidadById: async (_, { id }) => {
             try {
                 const comodidades = await Comodidades.findById(id);
                 return comodidades;

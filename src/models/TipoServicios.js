@@ -11,6 +11,11 @@ const TipoServicioSchema = new mongoose.Schema({
         require: true,
         trim: true
     },
+    horadia: {
+        type: String,
+        require: true,
+        trim: true
+    },
     estado: {
         type: String,
         enum: ['ACTIVO', 'INACTIVO'],

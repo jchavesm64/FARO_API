@@ -5,7 +5,7 @@ export default {
     Query: {
         obtenerTours: async (_, { }) => {
             try {
-                const tour = await Tours.find({ estado: 'Activo' });
+                const tour = await Tours.find({ estado: 'ACTIVO' });
                 return tour;
             } catch (error) {
                 return error;

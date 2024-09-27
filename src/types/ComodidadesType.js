@@ -23,7 +23,7 @@ const comodidades_type = gql`
 
     type Query{
         obtenerComodidades:[Comodidades]
-        obtenerComodidad(id:ID): Comodidades
+        obtenerComodidadById(id:ID): Comodidades
     }
 
     type Mutation{
