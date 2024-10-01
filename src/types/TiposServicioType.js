@@ -6,6 +6,7 @@ const tipoServicio_type = gql`
         nombre: String
         cuantificable:String
         horadia:String
+        icon:String
         estado: Estado
     }
 
@@ -14,6 +15,7 @@ const tipoServicio_type = gql`
         nombre: String,
         cuantificable:Boolean
         horadia:String
+        icon:String
         estado: String
     }
         

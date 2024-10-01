@@ -16,6 +16,11 @@ const TipoServicioSchema = new mongoose.Schema({
         require: true,
         trim: true
     },
+    icon: {
+        type: String,
+        require: true,
+        trim: true
+    },
     estado: {
         type: String,
         enum: ['ACTIVO', 'INACTIVO'],
