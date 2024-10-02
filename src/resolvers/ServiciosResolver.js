@@ -4,7 +4,8 @@ export default {
     Query: {
         obtenerServicios: async (_, { }) => {
             try {
-                const servicios = await Servicios.find({ estado: 'ACTIVO' }).populate('tipo');
+                const servicios = await Servicios.find({ estado: 'ACTIVO' })
+                    .populate('tipo');
                 return servicios;
             } catch (error) {
                 return error;

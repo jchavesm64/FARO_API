@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const paquetes_type = gql`
-    type Paquete{
+    type Paquete {
         id: ID
         tipo: String
         nombre: String

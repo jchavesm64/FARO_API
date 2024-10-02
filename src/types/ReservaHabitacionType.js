@@ -3,22 +3,24 @@ const { gql } = require('apollo-server-express');
 const reservaHabitacion_type = gql`
     type ReservaHabitacion{
         id:ID
-        cliente: [Cliente]
+        cliente: [clientes]
         reserva: Reserva
         habitacion: Habitaciones
         fechaEntrada: String
         fechaSalida: String
         serviciosExtra: [Servicios]
+        cargosPerdida: [cargosPerdida]
         estado: String
     }
 
     input ReservaHabitacionInput{
-        cliente: [ID]
+        cliente: [clienteInput]
         habitacion: [ID]
-        reservas: ID
+        reserva: ID
         fechaEntrada: String
         fechaSalida: String
-        serviciosExtra: [servicesExtra]
+        serviciosExtra: [serviciosExtra]
+        cargosPerdida: [cargosPerdidainput]
         estado: String
     }
 
@@ -26,6 +28,43 @@ const reservaHabitacion_type = gql`
         estado: Boolean
         data: ReservaHabitacion
         message: String
+    }
+
+    type clientes {
+        nombre: String
+        nombreFacturacion: String
+        codigo: String
+        pais: String
+        telefono: String
+        correo: String
+    }
+    
+    type cargosPerdida {
+        descripcion: String
+        precio: Number
+        cantidad: Number
+        precioTotal: Number
+    }
+
+    input cargosPerdidainput {
+        descripcion: String
+        precio: Number
+        cantidad: Number
+        precioTotal: Number
+    }
+
+    input serviciosExtra {
+        room: ID
+        service: [ID]
+    }
+
+    input clienteInput {
+        nombre: String
+        nombreFacturacion: String
+        codigo: String
+        pais: String
+        telefono: String
+        correo: String
     }
 
     type Query{

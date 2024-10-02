@@ -5,7 +5,7 @@ export default {
     Query: {
         obtenerReservas: async (_, { }) => {
             try {
-                const reserva = await Reservas.find({ estado: 'Activo' });
+                const reserva = await Reservas.find();
                 return reserva;
             } catch (error) {
                 return error;
@@ -25,16 +25,20 @@ export default {
             try {
                 const resreva = new Reservas(input)
                 const result = await resreva.save();
-                for (let i = 0; i < bookingRoom.habitaciones.length; i++) {
+                for (let i = 0; i < bookingRoom.habitacion.length; i++) {
+                    
+                    const serviciosExtra = bookingRoom.serviciosExtra? bookingRoom.serviciosExtra.find(extra => extra.room === bookingRoom.habitacion[i]):[];
+                    const serviceIds = serviciosExtra ? serviciosExtra.service : [];
+
                     const reservaHabitacion = new ReservaHabitacion({
-                        habitacion: bookingRoom.habitaciones[i].roomId,
+                        habitacion: bookingRoom.habitacion[i],
                         reserva: result.id,
                         fechaEntrada: bookingRoom.fechaEntrada,
                         fechaSalida: bookingRoom.fechaSalida,
-                        serviciosExtra: bookingRoom.habitaciones[i].serviceIds,
+                        serviciosExtra: serviceIds,
                         estado: 'Pendiente'
                     });
-                    await Habitaciones.findOneAndUpdate({ _id: bookingRoom.habitaciones[i].roomId }, { estado: 'Reservada' }, { new: true });
+                    await Habitaciones.findOneAndUpdate({ _id: bookingRoom.habitacion[i] }, { estado: 'Reservada' }, { new: true });
                     await reservaHabitacion.save();
                 }
                 return {
@@ -43,10 +47,11 @@ export default {
                     message: "Habición asociada a una reserva"
                 }
             } catch (error) {
+                console.log(error)
                 return {
                     estado: false,
                     data: null,
-                    message: "Ocurrio un error inesperado"
+                    message: error
                 };
             }
         },

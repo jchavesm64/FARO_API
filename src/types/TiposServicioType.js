@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const tipoServicio_type = gql`
-    type TipoServicio{
+    type TipoServicio {
         id: ID
         nombre: String
         cuantificable:String

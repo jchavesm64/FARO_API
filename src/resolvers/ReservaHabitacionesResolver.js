@@ -1,15 +1,64 @@
-import ReservaHabitacion from "../models/ReservaHabitacion";
+import { model } from "mongoose";
+import ReservaHabitacion, { populate } from "../models/ReservaHabitacion";
 
 export default {
     Query: {
         obtenerReservaHabitaciones: async (_, { }) => {
             try {
-                const reservaHabitacion = await ReservaHabitacion.find({ estado: 'Activo' });
+                const reservaHabitacion = await ReservaHabitacion.find()
+                    .populate({
+                        path: 'serviciosExtra', 
+                        model: 'servicios'  
+                    })
+                    .populate({
+                        path: 'habitacion', 
+                        model: 'habitacion'  
+                    })
+                    .populate({
+                        path: 'reserva', 
+                        model: 'reservas',
+                        populate: [
+                            {
+                                path: 'serviciosGrupal', 
+                                model: 'servicios'
+                            },
+                            {
+                                path: 'paquetes', 
+                                model: 'paquete',
+                                populate: [
+                                    {
+                                        path: 'servicios', 
+                                        model: 'servicios'
+                                    },
+                                    {
+                                        path: 'tours', 
+                                        model: 'tour'
+                                    },
+                                    {
+                                        path: 'temporadas', 
+                                        model: 'temporada'
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'tours', 
+                                model: 'tour'
+                            },
+                            {
+                                path: 'cliente', 
+                                model: 'clientes'
+                            }
+                        ]  
+                    })
+                    .exec(); 
+
                 return reservaHabitacion;
             } catch (error) {
+                console.error(error);
                 return error;
             }
-        },
+        }
+        ,
         obtenerReservaHabitacion: async (_, { id }) => {
             try {
                 const reservaHabitacion = await ReservaHabitacion.findById(id);
