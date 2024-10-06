@@ -3,8 +3,8 @@ const { gql } = require('apollo-server-express');
 const Reservas_type = gql`
     type Reserva {
         id: ID
-        cliente: ID
-        usuario: ID
+        cliente: Cliente
+        usuario: Usuario
         fechaReserva: String
         numeroPersonas: NumeroPersonas
         total: Float

@@ -5,7 +5,12 @@ export default {
     Query: {
         obtenerReservas: async (_, { }) => {
             try {
-                const reserva = await Reservas.find();
+                const reserva = await Reservas.find()
+                    .populate('cliente')
+                    .populate('usuario')
+                    .populate('serviciosGrupal');
+
+                console.log(reserva)
                 return reserva;
             } catch (error) {
                 return error;
@@ -26,8 +31,8 @@ export default {
                 const resreva = new Reservas(input)
                 const result = await resreva.save();
                 for (let i = 0; i < bookingRoom.habitacion.length; i++) {
-                    
-                    const serviciosExtra = bookingRoom.serviciosExtra? bookingRoom.serviciosExtra.find(extra => extra.room === bookingRoom.habitacion[i]):[];
+
+                    const serviciosExtra = bookingRoom.serviciosExtra ? bookingRoom.serviciosExtra.find(extra => extra.room === bookingRoom.habitacion[i]) : [];
                     const serviceIds = serviciosExtra ? serviciosExtra.service : [];
 
                     const reservaHabitacion = new ReservaHabitacion({

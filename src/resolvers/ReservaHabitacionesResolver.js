@@ -7,50 +7,50 @@ export default {
             try {
                 const reservaHabitacion = await ReservaHabitacion.find()
                     .populate({
-                        path: 'serviciosExtra', 
-                        model: 'servicios'  
+                        path: 'serviciosExtra',
+                        model: 'servicios'
                     })
                     .populate({
-                        path: 'habitacion', 
-                        model: 'habitacion'  
+                        path: 'habitacion',
+                        model: 'habitacion'
                     })
                     .populate({
-                        path: 'reserva', 
+                        path: 'reserva',
                         model: 'reservas',
                         populate: [
                             {
-                                path: 'serviciosGrupal', 
+                                path: 'serviciosGrupal',
                                 model: 'servicios'
                             },
                             {
-                                path: 'paquetes', 
+                                path: 'paquetes',
                                 model: 'paquete',
                                 populate: [
                                     {
-                                        path: 'servicios', 
+                                        path: 'servicios',
                                         model: 'servicios'
                                     },
                                     {
-                                        path: 'tours', 
+                                        path: 'tours',
                                         model: 'tour'
                                     },
                                     {
-                                        path: 'temporadas', 
+                                        path: 'temporadas',
                                         model: 'temporada'
                                     }
                                 ]
                             },
                             {
-                                path: 'tours', 
+                                path: 'tours',
                                 model: 'tour'
                             },
                             {
-                                path: 'cliente', 
+                                path: 'cliente',
                                 model: 'clientes'
                             }
-                        ]  
+                        ]
                     })
-                    .exec(); 
+                    .exec();
 
                 return reservaHabitacion;
             } catch (error) {
@@ -61,7 +61,51 @@ export default {
         ,
         obtenerReservaHabitacion: async (_, { id }) => {
             try {
-                const reservaHabitacion = await ReservaHabitacion.findById(id);
+                const reservaHabitacion = await ReservaHabitacion.findById(id).populate({
+                    path: 'serviciosExtra',
+                    model: 'servicios'
+                })
+                    .populate({
+                        path: 'habitacion',
+                        model: 'habitacion'
+                    })
+                    .populate({
+                        path: 'reserva',
+                        model: 'reservas',
+                        populate: [
+                            {
+                                path: 'serviciosGrupal',
+                                model: 'servicios'
+                            },
+                            {
+                                path: 'paquetes',
+                                model: 'paquete',
+                                populate: [
+                                    {
+                                        path: 'servicios',
+                                        model: 'servicios'
+                                    },
+                                    {
+                                        path: 'tours',
+                                        model: 'tour'
+                                    },
+                                    {
+                                        path: 'temporadas',
+                                        model: 'temporada'
+                                    }
+                                ]
+                            },
+                            {
+                                path: 'tours',
+                                model: 'tour'
+                            },
+                            {
+                                path: 'cliente',
+                                model: 'clientes'
+                            }
+                        ]
+                    })
+                    .exec();
                 return reservaHabitacion;
             } catch (error) {
                 return error;
