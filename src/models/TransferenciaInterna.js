@@ -1,26 +1,26 @@
-const mongose = require('mongoose');
+const mongoose = require('mongoose');
 
-const TransferenciaInternaSchema = new mongose.Schema({
+const TransferenciaInternaSchema = new mongoose.Schema({
     fecha:{
         type: Date,
         require: true,
         trim: true
     },
     almacenDesde: {
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'almacenes',
     },
     almacenHasta: {
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'almacenes',
     },
     nota:{
         type: String
     },
     usuario:{
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'usuarios'
     },
 });
 
-module.exports = mongose.model('TransferenciaInterna', TransferenciaInternaSchema);
+module.exports = mongoose.model('TransferenciaInterna', TransferenciaInternaSchema);

@@ -27,6 +27,12 @@ import Activo from './Activos';
 import FacturasParametros from './FacturasParametros';
 import FacturasEmitidas from './FacturasEmitidas';
 import MovimientosActivo from './MovimientosActivo';
+import Comodidades from './Comodidades';
+import TipoHabitacion from './TipoHabitacion';
+import Servicios from './Servicios';
+import Habitaciones from './Habitaciones';
+import Reservas from './Reservas';
+import ReservaHabitacion from './ReservaHabitacion';
 
 export {
     Rol,
@@ -57,5 +63,11 @@ export {
     Activo,
     FacturasParametros,
     MovimientosActivo,
-    FacturasEmitidas
+    FacturasEmitidas,
+    Comodidades,
+    TipoHabitacion,
+    Servicios,
+    Habitaciones,
+    Reservas,
+    ReservaHabitacion
 };

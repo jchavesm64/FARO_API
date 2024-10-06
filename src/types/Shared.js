@@ -45,6 +45,11 @@ const shared = gql`
         activo: Activo
         movimientos: [MovimientosActivoType]
     }
+    
+   input servicesExtra{
+        roomId: ID
+        serviceIds:[ID]
+    }
 `;
 
 module.exports = shared;

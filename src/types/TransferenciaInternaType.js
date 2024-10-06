@@ -39,4 +39,4 @@ module.exports = transferencia_interna_type;
 
 
 
-const mongose = require('mongoose');
+const mongoose = require('mongoose');

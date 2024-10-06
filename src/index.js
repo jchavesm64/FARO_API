@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 server.applyMiddleware({ app });
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, dbName: 'dev' }).then(
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, dbName: 'dev-mau' }).then(
     () => {
         console.log('Database connected')
         app.listen(
