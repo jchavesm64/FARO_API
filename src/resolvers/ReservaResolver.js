@@ -8,7 +8,37 @@ export default {
                 const reserva = await Reservas.find()
                     .populate('cliente')
                     .populate('usuario')
-                    .populate('serviciosGrupal');
+                    .populate(
+                        {
+                            path: 'serviciosGrupal',
+                            model: 'servicios',
+                            populate: {
+                                path: 'tipo',
+                                model: 'tipoServicio'
+                            }
+                        }
+                    )
+                    .populate('tours')
+                    .populate(
+                        {
+                            path: 'paquetes',
+                            model: 'paquete',
+                            populate: [
+                                {
+                                    path: 'servicios',
+                                    model: 'servicios'
+                                },
+                                {
+                                    path: 'tours',
+                                    model: 'tour'
+                                },
+                                {
+                                    path: 'temporadas',
+                                    model: 'temporada'
+                                }
+                            ]
+                        }
+                    );
 
                 console.log(reserva)
                 return reserva;
