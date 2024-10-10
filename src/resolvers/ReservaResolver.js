@@ -40,7 +40,6 @@ export default {
                         }
                     );
 
-                console.log(reserva)
                 return reserva;
             } catch (error) {
                 return error;
