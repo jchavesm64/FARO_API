@@ -47,7 +47,40 @@ export default {
         },
         obtenerReserva: async (_, { id }) => {
             try {
-                const reserva = await Reservas.findById(id);
+                const reserva = await Reservas.findById(id)
+                    .populate('cliente')
+                    .populate('usuario')
+                    .populate(
+                        {
+                            path: 'serviciosGrupal',
+                            model: 'servicios',
+                            populate: {
+                                path: 'tipo',
+                                model: 'tipoServicio'
+                            }
+                        }
+                    )
+                    .populate('tours')
+                    .populate(
+                        {
+                            path: 'paquetes',
+                            model: 'paquete',
+                            populate: [
+                                {
+                                    path: 'servicios',
+                                    model: 'servicios'
+                                },
+                                {
+                                    path: 'tours',
+                                    model: 'tour'
+                                },
+                                {
+                                    path: 'temporadas',
+                                    model: 'temporada'
+                                }
+                            ]
+                        }
+                    );
                 return reserva;
             } catch (error) {
                 return error;

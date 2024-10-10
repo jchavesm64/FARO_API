@@ -10,6 +10,7 @@ const Reservas_type = gql`
         total: Float
         serviciosGrupal: [Servicios]
         paquetes: [Paquete]
+        tipo: String
         tours: [Tour]
         notas: [JSON]
         metodoPago: String
