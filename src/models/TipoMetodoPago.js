@@ -6,6 +6,11 @@ const TipoMetodoPago = new mongoose.Schema({
         require: true,
         trim: true,
     },
+    estado: {
+        type: String,
+        require: true,
+        trim: true,
+    },
 });
 
 module.exports = mongoose.model('TipoMetodoPago', TipoMetodoPago);

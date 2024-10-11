@@ -10,13 +10,11 @@ const pisos_type = gql`
     type Piso{
         id: ID
         nombre: String
-        numero: String
         estado: EstadoPiso
     }
 
     input PisoInput{
         nombre: String
-        numero: String
         estado: EstadoPiso
     }
 
@@ -26,10 +24,26 @@ const pisos_type = gql`
         message: Date
     }
 
+    type ComandaConSubcuentas{
+        comanda: Comanda
+        subcuentas: [Subcuenta]
+    }
+
+    type MesaConComandas{
+        mesa: Mesa
+        comandas: [ComandaConSubcuentas]
+    }
+
+    type ComandasPorPiso{
+        piso: Piso
+        mesas: [MesaConComandas]
+    }
+
     type Query{
         obtenerPisos: [Piso]
-        obtenerPiso(id: ID): Piso
+        obtenerPisoById(id: ID): Piso
         obtenerMesasPorPiso(id: ID): [Mesa]
+        obtenerComandasPorPiso(id: ID): ComandasPorPiso
     }
 
     type Mutation{

@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 const mesas_type = gql`
 
-    enum EstadoMesa{
+    enum Disponibilidad{
         LIBRE
         RESERVADA
         OCUPADA
@@ -25,23 +25,23 @@ const mesas_type = gql`
 
     type Mesa{
         id: ID
-        nombre: String
-        numero: String
+        numero: Int
         tipo: ETipoMesa
         piso: Piso
         ubicacion: Ubicacion
-        estado: EstadoMesa
+        disponibilidad: Disponibilidad
         temporizador: Int
+        estado: Estado
     } 
 
     input MesaInput{
-        nombre: String
-        numero: String
+        numero: Int
         tipo: ETipoMesa
         piso: ID
         ubicacion: UbicacionInput
-        estado: EstadoMesa
-        temporizador: Int
+        disponibilidad: Disponibilidad
+        temporizador: Int,
+        estado: Estado
     }
 
     type RespuestaMesa{
@@ -52,8 +52,7 @@ const mesas_type = gql`
 
     type Query{
         obtenerMesas: [Mesa]
-        obtenerMesa(id: ID): Mesa
-        obtenerComandasPorMesa(id: ID): [Comanda]
+        obtenerMesaById(id: ID): Mesa
     }
 
     type Mutation{

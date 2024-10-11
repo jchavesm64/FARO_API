@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const SubcuentaSchema = new mongoose.Schema({
+    numero: {
+        type: Number,
+        require: true,
+    },
     comanda: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comanda',
@@ -9,17 +13,21 @@ const SubcuentaSchema = new mongoose.Schema({
     cliente: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cliente',
-        require: true
     },
     fecha: {
         type: Date,
         require: true,
     },
-    productos: [{
+    platillos: [{
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Menu',
             require: true//Menu
+        },
+        nombre: {
+            type: String,
+            require: true,
+            trim: true,
         },
         cantidad: {
             type: Number,

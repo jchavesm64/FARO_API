@@ -2,21 +2,28 @@ const { gql } = require('apollo-server-express');
 
 const comandas_type = gql`
 
+    enum EstadoComanda{
+        GENERADA
+        FINALIZADA
+        DESCARTADA
+    }
+
     type Comanda{
         id: ID
-        piso: Piso
         mesa: Mesa
         fecha: Date
+        observaciones: String
         preFactura: Boolean,
-        estado: String,
+        estado: EstadoComanda,
         subcuentas: [Subcuenta]
     }
 
     input ComandaInput{
-        piso: ID
         mesa: ID
         fecha: Date
+        observaciones: String
         preFactura: Boolean,
+        estado: EstadoComanda,
     }
 
     type RespuestaComanda{
@@ -26,9 +33,9 @@ const comandas_type = gql`
     }
 
     type Query{
-        obtenerComandas(piso:ID): [Comanda]
-        obtenerComanda(id: ID): Comanda
-        obtenerComandasPorMesa(mesaId: ID): [Comanda]
+        obtenerComandas: [Comanda]
+        obtenerComandaById(id: ID): Comanda
+        obtenerComandaPorMesa(id: ID): Comanda
     }
 
     type Mutation{

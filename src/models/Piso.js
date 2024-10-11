@@ -6,11 +6,6 @@ const PisoSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
-    numero: {
-        type: String,
-        require: true,
-        trim: true,
-    },
     estado: {
         type: String,
         require: true,

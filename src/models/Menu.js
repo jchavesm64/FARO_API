@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const MenuSchema = new mongoose.Schema({
     nombre: {
         type: String,
-        require: true,
+        required: true,
     },
     descripcion: {
         type: String,
@@ -17,12 +17,13 @@ const MenuSchema = new mongoose.Schema({
     precioCosto: {
         type: Number
     },
-    precioVenta: {
+    porcentajeGanancia: {
         type: Number
     },
-    tipo: {
-        type: String,
-        require: true,
+    tipoPlatillo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TipoPlatillo',
+        required: true
     },
     tieneGuarnicion: {
         type: Boolean,
@@ -47,6 +48,11 @@ const MenuSchema = new mongoose.Schema({
             require: false
         }
     }],
+    tipoMenu: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TipoMenu',
+        required: true
+    }]
 });
 
 module.exports = mongoose.model('menus', MenuSchema);

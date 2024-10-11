@@ -1,19 +1,12 @@
 const mongoose = require('mongoose');
 
 const MesaSchema = new mongoose.Schema({
-    nombre: {
-        type: String,
-        require: true,
-        trim: true,
-    },
     numero: {
-        type: String,
+        type: Number,
         require: true,
-        trim: true,
     },
     tipo: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'TipoMesa',
+        type: String,
         require: true
     },
     piso: {
@@ -31,6 +24,11 @@ const MesaSchema = new mongoose.Schema({
             require: true,
         }
     },
+    disponibilidad: {
+        type: String,
+        require: true,
+        trim: true,
+    },
     estado: {
         type: String,
         require: true,
@@ -38,7 +36,6 @@ const MesaSchema = new mongoose.Schema({
     },
     temporizador: {
         type: Number,
-        require: true,
     },
 });
 
