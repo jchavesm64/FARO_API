@@ -29,8 +29,9 @@ import Comanda from './Comanda';
 import Mesa from './Mesa';
 import Piso from './Piso';
 import Subcuenta from './Subcuenta';
-import TipoMesa from './TipoMesa';
 import TipoMetodoPago from './TipoMetodoPago';
+import TipoMenu from './TipoMenu';
+import TipoPlatillo from './TipoPlatillo';
 
 export {
     Rol,
@@ -64,6 +65,7 @@ export {
     Mesa,
     Piso,
     Subcuenta,
-    TipoMesa,
-    TipoMetodoPago
+    TipoMetodoPago,
+    TipoMenu,
+    TipoPlatillo
 };
