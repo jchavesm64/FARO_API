@@ -1,10 +1,10 @@
 import { Comanda, Mesa, Subcuenta } from "../models";
-
+import { Types } from 'mongoose';
 export default {
     Query: {
-        obtenerComandas: async (_, { piso }) => {
+        obtenerComandas: async (_, { }) => {
             try {
-                const comandas = await Comanda.find({ piso, estado: 'ACTIVO' }).populate('mesa');
+                const comandas = await Comanda.find({}).populate('mesa');
                 for (const comanda of comandas) {
                     const subcuentas = await Subcuenta.find({ comanda: comanda.id });
                     comanda.subcuentas = subcuentas;
@@ -14,9 +14,9 @@ export default {
                 return error;
             }
         },
-        obtenerComanda: async (_, { id }) => {
+        obtenerComandaById: async (_, { id }) => {
             try {
-                const comanda = await Comanda.find({ id }).populate('mesa').populate('piso');
+                const comanda = await Comanda.find({ id }).populate('mesa');
                 const subcuentas = await Subcuenta.find({ comanda: comanda.id });
                 comanda.subcuentas = subcuentas;
 
@@ -25,51 +25,107 @@ export default {
                 return error;
             }
         },
-        obtenerComandasPorMesa: async (_, { mesaId }) => {
+        obtenerComandaPorMesa: async (_, { id }) => {
             try {
-                const comanda = await Comanda.find({ mesa: mesaId, estado: 'ACTIVO' });
-                const subcuentas = await Subcuenta.find({ comanda: comanda.id });
-                comanda.subcuentas = subcuentas;
-                return comanda;
+                const comanda = await Comanda.findOne({ mesa: id, estado: 'GENERADA' });
+                if (!comanda) {
+                    return null;
+                }
+
+                const subcuentas = await Subcuenta.find({ comanda: Types.ObjectId(comanda._id) });
+
+                return {
+                    ...comanda.toObject(),
+                    id: comanda._id.toString(),
+                    mesa: {
+                        ...comanda.mesa,
+                        id: comanda.mesa._id.toString()
+                    },
+                    subcuentas: subcuentas.map(subcuenta => ({
+                        ...subcuenta.toObject(),
+                        id: subcuenta._id.toString(),
+                    })),
+                };
             } catch (error) {
                 return error;
             }
-        }
+        },
     },
     Mutation: {
         insertarComanda: async (_, { input }) => {
             try {
-                const { piso, mesa, fecha, preFactura } = input;
-                const ocupada = await Mesa.findOne({ id: mesa, estado: { $ne: 'LIBRE' } });
-                if (ocupada) {
-                    return "La mesa se encuentra ocupada o reserveada";
+                const { mesa } = input;
+                const existe = await Comanda.findOne({ mesa, estado: 'GENERADA' });
+                if (existe) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "La mesa ya posee una comanda abierta"
+                    };
                 }
-
-                return result;
-
+                const comanda = new Comanda(input);
+                const result = await comanda.save();
+                return {
+                    estado: true,
+                    data: result,
+                    message: "Comanda creada con exito"
+                };
             } catch (error) {
-                return error;
+                return {
+                    estado: false,
+                    data: null,
+                    message: error.message || "Ocurrio un error inesperado al guardar la comanda"
+                };
             }
         },
-        actualizarPermiso: async (_, { id, input }) => {
+        actualizarComanda: async (_, { id, input }) => {
             try {
-                const permiso = await Permiso.findOneAndUpdate({ _id: id }, input, { new: true });
-                return permiso;
+                const comanda = await Comanda.findOneAndUpdate({ _id: id }, input, { new: true });
+                if (!comanda) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "Ocurrio un error al actualizar la comanda"
+                    };
+                }
+                return {
+                    estado: true,
+                    data: comanda,
+                    message: "La comanda fue actualizada con éxito"
+                };
             } catch (error) {
-                return error;
+                return {
+                    estado: false,
+                    data: null,
+                    message: error.message || "Ocurrio un error inesperado al actualizar la comanda"
+                };
             }
         },
-        desactivarPermiso: async (_, { id }) => {
+        desactivarComanda: async (_, { id }) => {
             try {
-                const permiso = await Permiso.findOneAndUpdate({ _id: id }, { estado: 'INACTIVO' }, { new: true });
-                if (permiso) {
-                    return "Permiso eliminado correctamente";
-                } else {
-                    return "No se pudo eliminar el permiso";
+                const comanda = await Comanda.findOneAndUpdate({ _id: id }, { estado: 'DESCARTADA' }, { new: true });
+                console.log(id);
+                if (!comanda) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "Ocurrio un error al desactivar la comanda"
+                    };
                 }
+                return {
+                    estado: true,
+                    data: comanda,
+                    message: "La comanda fue desactivada con éxito"
+                };
             } catch (error) {
-                return error;
+                console.log(error);
+                return {
+                    estado: false,
+                    data: null,
+                    message: error.message || "Ocurrio un error inesperado al desactivar la comanda"
+                };
             }
+
         }
     }
 }

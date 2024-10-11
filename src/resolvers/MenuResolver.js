@@ -4,12 +4,22 @@ export default {
     Query: {
         obtenerMenus: async (_, { }) => {
             try {
-                const menus = await Menu.find({estado: 'ACTIVO'});
-                return menus.sort(function(a, b){
-                    if(a.nombre > b.nombre){
+                const menus = await Menu.find({
+                    estado: 'ACTIVO'
+                })
+                    .populate({
+                        path: 'tipoPlatillo',
+                        match: { estado: 'ACTIVO' }
+                    })
+                    .populate({
+                        path: 'tipoMenu',
+                        match: { estado: 'ACTIVO' }
+                    });
+                return menus.sort(function (a, b) {
+                    if (a.nombre > b.nombre) {
                         return 1
                     }
-                    if(a.nombre < b.nombre){
+                    if (a.nombre < b.nombre) {
                         return -1
                     }
                     return 0;
@@ -18,11 +28,19 @@ export default {
                 return error;
             }
         },
-        obtenerMenu: async (_, {id}) => {
-            try{
-                const menu = await Menu.findById(id);
+        obtenerMenu: async (_, { id }) => {
+            try {
+                const menu = await Menu.findById(id)
+                    .populate({
+                        path: 'tipoPlatillo',
+                        match: { estado: 'ACTIVO' }
+                    })
+                    .populate({
+                        path: 'tipoMenu',
+                        match: { estado: 'ACTIVO' }
+                    });
                 return menu;
-            }catch(error){
+            } catch (error) {
                 console.log(error);
                 return error;
             }
@@ -43,7 +61,7 @@ export default {
                     const menu = new Menu(input);
                     const result = await menu.save();
 
-                    for(let i=0; i<lineasInput.length; i++){
+                    for (let i = 0; i < lineasInput.length; i++) {
                         console.log(lineasInput[i]);
                         const linea = new MenuLinea({
                             ...lineasInput[i],

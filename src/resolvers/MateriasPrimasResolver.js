@@ -3,14 +3,14 @@ import { Movimientos } from '../models';
 
 export default {
     Query: {
-        obtenerMateriasPrimas: async (_, { tipo}) => {
+        obtenerMateriasPrimas: async (_, { tipo }) => {
             try {
                 const materias = await MateriasPrimas.find({ estado: 'ACTIVO', tipo: tipo });
-                return materias.sort(function(a, b){
-                    if(a.nombre > b.nombre){
+                return materias.sort(function (a, b) {
+                    if (a.nombre > b.nombre) {
                         return 1
                     }
-                    if(a.nombre < b.nombre){
+                    if (a.nombre < b.nombre) {
                         return -1
                     }
                     return 0;
@@ -22,11 +22,11 @@ export default {
         obtenerTodasMateriasPrimas: async (_) => {
             try {
                 const materias = await MateriasPrimas.find({ estado: 'ACTIVO' });
-                return materias.sort(function(a, b){
-                    if(a.nombre > b.nombre){
+                return materias.sort(function (a, b) {
+                    if (a.nombre > b.nombre) {
                         return 1
                     }
-                    if(a.nombre < b.nombre){
+                    if (a.nombre < b.nombre) {
                         return -1
                     }
                     return 0;
@@ -35,22 +35,22 @@ export default {
                 return error;
             }
         },
-        obtenerMateriasPrimasConMovimientos: async (_, { tipo}) => {
+        obtenerMateriasPrimasConMovimientos: async (_, { tipo }) => {
             try {
                 var materiasmovimientos = []
                 const materias = await MateriasPrimas.find({ estado: 'ACTIVO', tipo: tipo });
                 materias.map(item => {
-                    const result = Movimientos.find({materia_prima: item.id}).populate('usuario').populate('proveedor')
+                    const result = Movimientos.find({ materia_prima: item.id }).populate('usuario').populate('proveedor')
                     materiasmovimientos.push({
                         materia_prima: item,
                         movimientos: result
                     })
                 })
-                return materiasmovimientos.sort(function(a, b){
-                    if(a.materia_prima.nombre > b.materia_prima.nombre){
+                return materiasmovimientos.sort(function (a, b) {
+                    if (a.materia_prima.nombre > b.materia_prima.nombre) {
                         return 1
                     }
-                    if(a.materia_prima.nombre < b.materia_prima.nombre){
+                    if (a.materia_prima.nombre < b.materia_prima.nombre) {
                         return -1
                     }
                     return 0;
@@ -62,7 +62,7 @@ export default {
         obtenerMateriaPrima: async (_, { id }) => {
             try {
                 let materia = await MateriasPrimas.findById(id);
-                const result = Movimientos.find({materia_prima: materia.id}).populate('usuario').populate('proveedor')
+                const result = Movimientos.find({ materia_prima: materia.id }).populate('usuario').populate('proveedor')
                 materia.movimientos = result
                 return materia;
             } catch (error) {
@@ -73,6 +73,8 @@ export default {
     Mutation: {
         insertarMateriaPrima: async (_, { input }) => {
             try {
+                const formattedType = input.tipo.charAt(0).toUpperCase() + input.tipo.slice(1).toLowerCase();
+                input.tipo = formattedType;
                 const materia = new MateriasPrimas(input);
                 const result = await materia.save();
                 return {
