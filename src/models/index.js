@@ -24,7 +24,15 @@ import TransferenciaInternaLinea from './TransferenciaInternaLinea';
 import ModuloConsecutivo from './ModuloConsecutivo';
 import HistorialConsecutivo from './HistorialConsecutivo';
 import Activo from './Activos';
+import FacturasParametros from './FacturasParametros';
+import FacturasEmitidas from './FacturasEmitidas';
 import MovimientosActivo from './MovimientosActivo';
+import Comodidades from './Comodidades';
+import TipoHabitacion from './TipoHabitacion';
+import Servicios from './Servicios';
+import Habitaciones from './Habitaciones';
+import Reservas from './Reservas';
+import ReservaHabitacion from './ReservaHabitacion';
 import Comanda from './Comanda';
 import Mesa from './Mesa';
 import Piso from './Piso';
@@ -60,6 +68,7 @@ export {
     ModuloConsecutivo,
     HistorialConsecutivo,
     Activo,
+    FacturasParametros,
     MovimientosActivo,
     Comanda,
     Mesa,
@@ -67,5 +76,12 @@ export {
     Subcuenta,
     TipoMetodoPago,
     TipoMenu,
-    TipoPlatillo
+    TipoPlatillo,
+    FacturasEmitidas,
+    Comodidades,
+    TipoHabitacion,
+    Servicios,
+    Habitaciones,
+    Reservas,
+    ReservaHabitacion
 };

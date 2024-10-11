@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const mongoose = require('mongoose');
 
-const MovimientosSchema = new mongose.Schema({
+const MovimientosSchema = new mongoose.Schema({
     tipo:{
         type: String,
         require: true,
@@ -15,11 +15,11 @@ const MovimientosSchema = new mongose.Schema({
         require: true
     },
     cliente:{
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'clientes'
     },
     proveedor:{
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'proveedores'
     },
     fecha:{
@@ -48,17 +48,17 @@ const MovimientosSchema = new mongose.Schema({
         trim: true
     },
     usuario:{
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'usuarios'
     },
     materia_prima:{
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'MateriasPrimas'
     },
     almacen: {
-        type: mongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'almacenes',
     },
 });
 
-module.exports = mongose.model('Movimientos', MovimientosSchema);
+module.exports = mongoose.model('Movimientos', MovimientosSchema);

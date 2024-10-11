@@ -1,6 +1,6 @@
-const mongose = require('mongoose');
+const mongoose = require('mongoose');
 
-const MateriasPrimasSchema = new mongose.Schema({
+const MateriasPrimasSchema = new mongoose.Schema({
     nombre: {
         type: String,
         require: true,
@@ -56,4 +56,4 @@ const MateriasPrimasSchema = new mongose.Schema({
     },
 });
 
-module.exports = mongose.model('MateriasPrimas', MateriasPrimasSchema);
+module.exports = mongoose.model('MateriasPrimas', MateriasPrimasSchema);
