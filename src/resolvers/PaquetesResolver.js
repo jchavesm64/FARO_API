@@ -5,14 +5,6 @@ export default {
         obtenerPaquetes: async (_, { }) => {
             try {
                 const paquetes = await Paquetes.find()
-                    .populate({
-                        path: 'servicios',
-                        populate: {
-                            path: 'tipo',
-                            model: 'tipoServicio'
-                        }
-                    })
-                    .populate('tours')
                     .populate('temporadas');
                 return paquetes;
             } catch (error) {
@@ -22,8 +14,6 @@ export default {
         obtenerPaquete: async (_, { id }) => {
             try {
                 const paquetes = await Paquetes.findById(id)
-                    .populate('servicios')
-                    .populate('tours')
                     .populate('temporadas');
 
                 return paquetes;

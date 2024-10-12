@@ -5,8 +5,8 @@ const paquetes_type = gql`
         id: ID
         tipo: String
         nombre: String
-        servicios: [Servicios]
-        tours: [Tour]
+        servicios: JSON
+        tours: JSON
         temporadas:Temporada
         descripcion: String
         precio: Number
@@ -16,8 +16,8 @@ const paquetes_type = gql`
     input PaqueteInput {
         tipo: String
         nombre: String
-        servicios: [ID]
-        tours: [ID]
+        servicios: [JSON]
+        tours: [JSON]
         temporadas:ID
         descripcion: String
         precio: Number

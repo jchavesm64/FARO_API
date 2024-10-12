@@ -13,12 +13,12 @@ const PaqueteSchema = new mongoose.Schema({
         trim: true
     },
     servicios: [{
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'servicios'
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
     }],
     tours: [{
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'tour'
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
     }],
     temporadas: {
         type: mongoose.Schema.Types.ObjectId,
