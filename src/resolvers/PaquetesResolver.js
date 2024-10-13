@@ -60,6 +60,7 @@ export default {
                     message: "Paquete actualizada correctamente"
                 };
             } catch (error) {
+
                 return {
                     estado: false,
                     data: null,
