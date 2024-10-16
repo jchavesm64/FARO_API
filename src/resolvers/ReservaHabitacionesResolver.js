@@ -61,51 +61,17 @@ export default {
         ,
         obtenerReservaHabitacion: async (_, { id }) => {
             try {
-                const reservaHabitacion = await ReservaHabitacion.findById(id).populate({
-                    path: 'serviciosExtra',
-                    model: 'servicios'
-                })
+                const reservaHabitacion = await ReservaHabitacion.find({ reserva: id })
+                    .populate({
+                        path: 'serviciosExtra',
+                        model: 'servicios'
+                    })
                     .populate({
                         path: 'habitacion',
                         model: 'habitacion'
                     })
-                    .populate({
-                        path: 'reserva',
-                        model: 'reservas',
-                        populate: [
-                            {
-                                path: 'serviciosGrupal',
-                                model: 'servicios'
-                            },
-                            {
-                                path: 'paquetes',
-                                model: 'paquete',
-                                populate: [
-                                    {
-                                        path: 'servicios',
-                                        model: 'servicios'
-                                    },
-                                    {
-                                        path: 'tours',
-                                        model: 'tour'
-                                    },
-                                    {
-                                        path: 'temporadas',
-                                        model: 'temporada'
-                                    }
-                                ]
-                            },
-                            {
-                                path: 'tours',
-                                model: 'tour'
-                            },
-                            {
-                                path: 'cliente',
-                                model: 'clientes'
-                            }
-                        ]
-                    })
                     .exec();
+
                 return reservaHabitacion;
             } catch (error) {
                 return error;

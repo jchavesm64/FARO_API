@@ -33,16 +33,16 @@ const ReservasSchema = new mongoose.Schema({
         require: true
     },
     serviciosGrupal: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'servicios'
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
     }],
     paquetes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'paquete'
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
     }],
     tours: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'tour'
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
     }],
     notas: [{
         type: mongoose.Schema.Types.Mixed,

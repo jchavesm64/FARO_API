@@ -7,38 +7,8 @@ export default {
             try {
                 const reserva = await Reservas.find()
                     .populate('cliente')
-                    .populate('usuario')
-                    .populate(
-                        {
-                            path: 'serviciosGrupal',
-                            model: 'servicios',
-                            populate: {
-                                path: 'tipo',
-                                model: 'tipoServicio'
-                            }
-                        }
-                    )
-                    .populate('tours')
-                    .populate(
-                        {
-                            path: 'paquetes',
-                            model: 'paquete',
-                            populate: [
-                                {
-                                    path: 'servicios',
-                                    model: 'servicios'
-                                },
-                                {
-                                    path: 'tours',
-                                    model: 'tour'
-                                },
-                                {
-                                    path: 'temporadas',
-                                    model: 'temporada'
-                                }
-                            ]
-                        }
-                    );
+                    .populate('usuario');
+
 
                 return reserva;
             } catch (error) {
@@ -47,7 +17,9 @@ export default {
         },
         obtenerReserva: async (_, { id }) => {
             try {
-                const reserva = await Reservas.findById(id);
+                const reserva = await Reservas.findById(id)
+                    .populate('cliente')
+                    .populate('usuario');
                 return reserva;
             } catch (error) {
                 return error;
@@ -81,7 +53,6 @@ export default {
                     message: "Habición asociada a una reserva"
                 }
             } catch (error) {
-                console.log(error)
                 return {
                     estado: false,
                     data: null,

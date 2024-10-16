@@ -69,7 +69,7 @@ const reservaHabitacion_type = gql`
 
     type Query{
         obtenerReservaHabitaciones:[ReservaHabitacion]
-        obtenerReservaHabitacion(id:ID): ReservaHabitacion
+        obtenerReservaHabitacion(id:ID): [ReservaHabitacion]
     }
 
     type Mutation{
