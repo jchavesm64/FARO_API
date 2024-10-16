@@ -8,11 +8,11 @@ const Reservas_type = gql`
         fechaReserva: String
         numeroPersonas: NumeroPersonas
         total: Float
-        serviciosGrupal: [Servicios]
-        paquetes: [Paquete]
+        serviciosGrupal: JSON
+        paquetes: JSON
         tipo: String
-        tours: [Tour]
-        notas: [JSON]
+        tours: JSON
+        notas: JSON
         metodoPago: String
         politicas: String
         ultimaModificacion: String
@@ -36,9 +36,9 @@ const Reservas_type = gql`
         fechaReserva: String
         numeroPersonas: NumeroPersonasInput
         total: Number
-        serviciosGrupal: [ID]
-        paquetes: [ID]
-        tours: [ID]
+        serviciosGrupal: [JSON]
+        paquetes: [JSON]
+        tours: [JSON]
         notas: [JSON]
         metodoPago: String
         politicas: String
