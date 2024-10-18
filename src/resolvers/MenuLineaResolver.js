@@ -5,8 +5,33 @@ export default {
     Query: {
         obtenerLineasMenu: async (_, { id }) => {
             try {
-                const lineas = await MenuLinea.find({ menu: id }).populate('menu').populate('producto');
-                return lineas
+                const lineas = await MenuLinea.find({ menu: id })
+                    .populate('menu')
+                    .populate('producto')
+
+                const lineasFormateadas = lineas.map(linea => {
+                    linea.id = linea._id.toString();
+                    if (linea.menu && linea.menu._id) {
+                        linea.menu.id = linea.menu._id.toString();
+                    }
+                    if (linea.producto && linea.producto._id) {
+                        linea.producto.id = linea.producto._id.toString();
+                    }
+                    if (linea.menu.tipoPlatillo && linea.menu.tipoPlatillo._id) {
+                        linea.menu.tipoPlatillo.id = linea.menu.tipoPlatillo._id.toString();
+                    }
+                    if (linea.menu.tipoMenu) {
+                        linea.menu.tipoMenu = linea.menu.tipoMenu.map(tipo => {
+                            if (tipo && tipo._id) {
+                                tipo.id = tipo._id.toString();
+                            }
+                            return tipo;
+                        });
+                    }
+                    return linea;
+                });
+
+                return lineasFormateadas;
             } catch (error) {
                 console.log(error);
                 return error;
@@ -52,9 +77,7 @@ export default {
         },
         actualizarLineaMenu: async (_, { id, input }) => {
             try {
-                console.log(id, input);
                 const linea = await MenuLinea.findOneAndUpdate({ _id: id }, input, { new: true });
-                console.log(linea);
                 return {
                     estado: true,
                     data: linea,
