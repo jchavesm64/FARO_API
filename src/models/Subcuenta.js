@@ -41,7 +41,11 @@ const SubcuentaSchema = new mongoose.Schema({
             type: Number,
             require: true,
         },
-
+        entregados: {
+            type: Number,
+            require: true,
+            default: 0,
+        },
     }],
     descuento: {
         type: Number,
