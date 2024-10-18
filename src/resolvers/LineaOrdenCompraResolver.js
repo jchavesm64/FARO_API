@@ -57,15 +57,14 @@ export default {
         desactivarLineaOrdenCompra: async (_, { id, idOrden }) => {
             try {
                 const orden = await OrdenCompra.findOne({ _id: idOrden }).populate('lineasPedido');
-                let lineasPedido = orden.lineasPedido.filter(l=>l.id!==id)
-                lineasPedido = lineasPedido.map(l=> l.id)
+                let lineasPedido = orden.lineasPedido.filter(l => l.id !== id)
+                lineasPedido = lineasPedido.map(l => l.id)
 
                 await OrdenCompra.findOneAndUpdate({ _id: idOrden }, {
                     lineasPedido: lineasPedido
                 }, { new: true });
 
                 const linea = await LineaOrdenCompra.deleteOne({ _id: id })
-                console.log(linea);
                 if (linea) {
                     return {
                         estado: true,
