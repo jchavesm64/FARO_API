@@ -8,6 +8,7 @@ const subcuentas_type = gql`
         nombre: String,
         precio: Number,
         descuento: Number,
+        entregados: Number,
     }
 
     input PlatillosInput{
@@ -16,6 +17,7 @@ const subcuentas_type = gql`
         nombre: String,
         precio: Number,
         descuento: Number,
+        entregados: Number,
     }
 
     type FormaPago{
@@ -63,6 +65,12 @@ const subcuentas_type = gql`
         estado: SubcuentaEstado
     }
 
+    input actualizarEntregadosInput{
+        subcuenta: ID
+        platillo: ID
+        entregados: Number
+    }
+
     type RespuestaSubcuenta{
         estado: Boolean
         data: Subcuenta
@@ -78,6 +86,7 @@ const subcuentas_type = gql`
     type Mutation{
         insertarSubcuenta(input: SubcuentaInput): RespuestaSubcuenta
         actualizarSubcuenta(id: ID, input: SubcuentaInput): RespuestaSubcuenta
+        actualizarEntregados(input: actualizarEntregadosInput): RespuestaSubcuenta
         desactivarSubcuenta(id: ID): RespuestaSubcuenta
     }
 
