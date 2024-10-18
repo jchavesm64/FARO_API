@@ -3,14 +3,14 @@ import mongoose from 'mongoose';
 
 export default {
     Query: {
-        obtenerLineasRecepcionPedido: async (_, { id}) => {
+        obtenerLineasRecepcionPedido: async (_, { id }) => {
             try {
                 const lineas = await LineasRecepcionProductos.find({ estado: 'ACTIVO', recepcion: id }).populate('producto').populate('impuesto').populate('recepcion').populate('almacen');
-                return lineas.sort(function(a, b){
-                    if(a.fechaPedido > b.fechaPedido){
+                return lineas.sort(function (a, b) {
+                    if (a.fechaPedido > b.fechaPedido) {
                         return 1
                     }
-                    if(a.fechaPedido < b.fechaPedido){
+                    if (a.fechaPedido < b.fechaPedido) {
                         return -1
                     }
                     return 0;
@@ -21,7 +21,7 @@ export default {
         },
         obtenerLineaRecepcionPedido: async (_, { id }) => {
             try {
-                const pedido = await LineasRecepcionProductos.findOne({id: id}).populate('producto').populate('impuesto').populate('recepcion').populate('almacen');
+                const pedido = await LineasRecepcionProductos.findOne({ id: id }).populate('producto').populate('impuesto').populate('recepcion').populate('almacen');
                 return pedido;
             } catch (error) {
 
@@ -58,7 +58,6 @@ export default {
         },
         actualizarLineasRecepcionPedido: async (_, { id, input }) => {
             try {
-                console.log(input);
                 const linea = await LineasRecepcionProductos.findOneAndUpdate({ _id: id }, input, { new: true });
                 return {
                     estado: true,
