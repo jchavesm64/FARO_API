@@ -29,11 +29,12 @@ export default {
     Mutation: {
         insertarReserva: async (_, { input, bookingRoom }) => {
             try {
-                const resreva = new Reservas(input)
+                const resreva = new Reservas(input);
                 const result = await resreva.save();
                 for (let i = 0; i < bookingRoom.habitacion.length; i++) {
 
                     const serviciosExtra = bookingRoom.serviciosExtra ? bookingRoom.serviciosExtra.find(extra => extra.room === bookingRoom.habitacion[i]) : [];
+                    console.log(serviciosExtra)
                     const serviceIds = serviciosExtra ? serviciosExtra.service : [];
 
                     const reservaHabitacion = new ReservaHabitacion({

@@ -8,7 +8,7 @@ const reservaHabitacion_type = gql`
         habitacion: Habitaciones
         fechaEntrada: String
         fechaSalida: String
-        serviciosExtra: [Servicios]
+        serviciosExtra: JSON
         cargosPerdida: [cargosPerdida]
         estado: String
     }
@@ -19,7 +19,7 @@ const reservaHabitacion_type = gql`
         reserva: ID
         fechaEntrada: String
         fechaSalida: String
-        serviciosExtra: [serviciosExtra]
+        serviciosExtra: [JSON]
         cargosPerdida: [cargosPerdidainput]
         estado: String
     }

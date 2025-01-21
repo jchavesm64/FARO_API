@@ -52,7 +52,7 @@ const Reservas_type = gql`
         habitacion: [ID]
         fechaEntrada: String
         fechaSalida: String
-        serviciosExtra: [serviciosExtra]
+        serviciosExtra: [JSON]
         cargosPerdida: [cargosPerdidainput]
         estado: String
     }

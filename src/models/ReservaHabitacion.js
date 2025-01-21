@@ -49,9 +49,8 @@ const ReservaHabitacionSchema = new mongoose.Schema({
         trim: true
     },
     serviciosExtra: [{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: 'servicios '
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
     }],
     cargosPerdida: [{
         descripcion: {
