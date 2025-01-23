@@ -33,6 +33,13 @@ import Servicios from './Servicios';
 import Habitaciones from './Habitaciones';
 import Reservas from './Reservas';
 import ReservaHabitacion from './ReservaHabitacion';
+import Comanda from './Comanda';
+import Mesa from './Mesa';
+import Piso from './Piso';
+import Subcuenta from './Subcuenta';
+import TipoMetodoPago from './TipoMetodoPago';
+import TipoMenu from './TipoMenu';
+import TipoPlatillo from './TipoPlatillo';
 
 export {
     Rol,
@@ -63,6 +70,13 @@ export {
     Activo,
     FacturasParametros,
     MovimientosActivo,
+    Comanda,
+    Mesa,
+    Piso,
+    Subcuenta,
+    TipoMetodoPago,
+    TipoMenu,
+    TipoPlatillo,
     FacturasEmitidas,
     Comodidades,
     TipoHabitacion,

@@ -7,8 +7,9 @@ const menu_type = gql`
         descripcion: String
         estado: String
         precioCosto: Number
-        precioVenta: Number
-        tipo: String
+        porcentajeGanancia: Number
+        tipoPlatillo: TipoPlatillo
+        tipoMenu: [TipoMenu]
     }
 
     input MenuInput{
@@ -16,8 +17,9 @@ const menu_type = gql`
         descripcion: String
         estado: String
         precioCosto: Number
-        precioVenta: Number
-        tipo: String
+        porcentajeGanancia: Number
+        tipoPlatillo: ID
+        tipoMenu: [ID]
     }
 
     type RespuestaMenu{

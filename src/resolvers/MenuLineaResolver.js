@@ -3,27 +3,53 @@ import mongoose from 'mongoose';
 
 export default {
     Query: {
-        obtenerLineasMenu: async (_, { id}) => {
+        obtenerLineasMenu: async (_, { id }) => {
             try {
-                const lineas = await MenuLinea.find({ menu: id }).populate('menu').populate('producto');
-                return lineas
+                const lineas = await MenuLinea.find({ menu: id })
+                    .populate('menu')
+                    .populate('producto')
+
+                const lineasFormateadas = lineas.map(linea => {
+                    linea.id = linea._id.toString();
+                    if (linea.menu && linea.menu._id) {
+                        linea.menu.id = linea.menu._id.toString();
+                    }
+                    if (linea.producto && linea.producto._id) {
+                        linea.producto.id = linea.producto._id.toString();
+                    }
+                    if (linea.menu.tipoPlatillo && linea.menu.tipoPlatillo._id) {
+                        linea.menu.tipoPlatillo.id = linea.menu.tipoPlatillo._id.toString();
+                    }
+                    if (linea.menu.tipoMenu) {
+                        linea.menu.tipoMenu = linea.menu.tipoMenu.map(tipo => {
+                            if (tipo && tipo._id) {
+                                tipo.id = tipo._id.toString();
+                            }
+                            return tipo;
+                        });
+                    }
+                    return linea;
+                });
+
+                return lineasFormateadas;
             } catch (error) {
+                console.log(error);
                 return error;
             }
         },
         obtenerLineaMenu: async (_, { id }) => {
             try {
-                const linea = await MenuLinea.findOne({id: id}).populate('menu').populate('producto');
+                const linea = await MenuLinea.findById(id).populate('menu').populate('producto');
                 return linea;
             } catch (error) {
-
+                console.log(error);
+                return error;
             }
         }
     },
     Mutation: {
         insertarLineaMenu: async (_, { input }) => {
             try {
-                console.log(input);
                 const { menu, producto } = input;
                 const existe = await MenuLinea.findOne({ menu: menu, producto: producto });
                 if (existe) {
