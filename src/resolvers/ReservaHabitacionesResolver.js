@@ -1,6 +1,7 @@
 import { model } from "mongoose";
 import ReservaHabitacion, { populate } from "../models/ReservaHabitacion";
 
+const mongoose = require('mongoose');
 export default {
     Query: {
         obtenerReservaHabitaciones: async (_, { }) => {
@@ -62,18 +63,24 @@ export default {
         obtenerReservaHabitacion: async (_, { id }) => {
             try {
                 const reservaHabitacion = await ReservaHabitacion.find({ reserva: id })
-                    .populate({
-                        path: 'serviciosExtra',
-                        model: 'servicios'
-                    })
-                    .populate({
-                        path: 'habitacion',
-                        model: 'habitacion'
-                    })
+                .populate({
+                    path: 'habitacion',
+                    model: 'habitacion',
+                    populate: [
+                        {
+                            path: 'tipoHabitacion', // Popular la relación tipoHabitacion
+                            model: 'tipoHabitacion',
+                        },
+                        {
+                            path: 'comodidades', // Popular la relación comodidades
+                            model: 'comodidades',
+                        },
+                    ],
+                })
                     .exec();
-
                 return reservaHabitacion;
             } catch (error) {
+                console.log('reservaHabitacion',error)
                 return error;
             }
         }
