@@ -3,16 +3,27 @@ import Reservas from "../models/Reservas";
 
 export default {
     Query: {
-        obtenerReservas: async (_, { }) => {
+        obtenerReservas: async (_, { filters }) => {
             try {
-                const reserva = await Reservas.find()
-                    .populate('cliente')
-                    .populate('usuario');
+                let query = {};
 
+                if (filters?.cliente) query.cliente = filters.cliente;
+                if (filters?.estado) query.estado = filters.estado;
+                if (filters?.fechaReserva) query.fechaReserva = filters.fechaReserva;
+                if (filters?.metodoPago) query.metodoPago = filters.metodoPago;
+                if (filters?.totalMin || filters?.totalMax) {
+                    query.total = {};
+                    if (filters.totalMin) query.total.$gte = filters.totalMin;
+                    if (filters.totalMax) query.total.$lte = filters.totalMax;
+                }
 
-                return reserva;
+                const reservas = await Reservas.find(query)
+                    .populate("cliente")
+                    .populate("usuario");
+
+                return reservas;
             } catch (error) {
-                return error;
+                throw new Error("Error al obtener las reservas: " + error.message);
             }
         },
         obtenerReserva: async (_, { id }) => {
@@ -34,7 +45,6 @@ export default {
                 for (let i = 0; i < bookingRoom.habitacion.length; i++) {
 
                     const serviciosExtra = bookingRoom.serviciosExtra ? bookingRoom.serviciosExtra.find(extra => extra.room === bookingRoom.habitacion[i]) : [];
-                    console.log(serviciosExtra)
                     const serviceIds = serviciosExtra ? serviciosExtra.service : [];
 
                     const reservaHabitacion = new ReservaHabitacion({
@@ -61,43 +71,96 @@ export default {
                 };
             }
         },
-        actualizarReserva: async (_, { id, input }) => {
+        actualizarReserva: async (_, { id, input, bookingRoom }) => {
             try {
-                const reserva = await Reservas.findByIdAndUpdate({ _id: id }, input, { new: true })
+                const updatedReserva = await Reservas.findByIdAndUpdate(id, input, { new: true });
+                if (!updatedReserva) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "Reserva no encontrada"
+                    };
+                }
+                const habitacionesAsociadas = await ReservaHabitacion.find({ reserva: id });
+                for (let habitacion of habitacionesAsociadas) {
+                    await Habitaciones.findByIdAndUpdate(habitacion.habitacion, { estado: "Disponible" }, { new: true });
+                }
+                await ReservaHabitacion.deleteMany({ reserva: id });
+                for (let i = 0; i < bookingRoom.habitacion.length; i++) {
+                    const serviciosExtra = bookingRoom.serviciosExtra
+                        ? bookingRoom.serviciosExtra.find(extra => extra.room === bookingRoom.habitacion[i])
+                        : [];
+                    const serviceIds = serviciosExtra ? serviciosExtra.service : [];
+
+                    const reservaHabitacion = new ReservaHabitacion({
+                        habitacion: bookingRoom.habitacion[i],
+                        reserva: id,
+                        fechaEntrada: bookingRoom.fechaEntrada,
+                        fechaSalida: bookingRoom.fechaSalida,
+                        serviciosExtra: serviceIds,
+                        estado: 'Pendiente'
+                    });
+                    await Habitaciones.findByIdAndUpdate(bookingRoom.habitacion[i], { estado: 'Reservada' }, { new: true });
+                    await reservaHabitacion.save();
+                }
+
                 return {
                     estado: true,
-                    data: reserva,
-                    message: "Reserva actualizada correctamente"
+                    data: updatedReserva,
+                    message: "Reserva actualizada exitosamente"
                 };
             } catch (error) {
                 return {
                     estado: false,
                     data: null,
-                    message: "Ocurrio un error inesperado"
+                    message: error.message
                 };
             }
         },
         desactivarReserva: async (_, { id }) => {
             try {
-                const reserva = await Reservas.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
-                if (reserva) {
-                    return {
-                        estado: true,
-                        data: null,
-                        message: "Reserva eliminada correctamente"
-                    };
-                } else {
+                const reserva = await Reservas.findByIdAndUpdate(
+                    id,
+                    { estado: "Cancelada" },
+                    { new: true }
+                );
+
+                if (!reserva) {
                     return {
                         estado: false,
                         data: null,
-                        message: "No se pudo eliminar la reserva"
+                        message: "Reserva no encontrada"
                     };
                 }
+
+                const habitacionesAsociadas = await ReservaHabitacion.find({ reserva: id });
+
+                if (!habitacionesAsociadas || habitacionesAsociadas.length === 0) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "No se encontraron habitaciones asociadas a la reserva"
+                    };
+                }
+
+                for (let habitacion of habitacionesAsociadas) {
+                    await Habitaciones.findByIdAndUpdate(
+                        habitacion.habitacion,
+                        { estado: "Disponible" },
+                        { new: true }
+                    );
+                }
+
+                return {
+                    estado: true,
+                    data: null,
+                    message: "Reserva cancelada y habitaciones actualizadas a 'Disponible'"
+                };
             } catch (error) {
                 return {
                     estado: false,
                     data: null,
-                    message: "Ocurrio un error inesperado"
+                    message: error.message
                 };
             }
         }

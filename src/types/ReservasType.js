@@ -91,7 +91,7 @@ const Reservas_type = gql`
 
     type Mutation {
         insertarReserva(input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
-        actualizarReserva(id: ID, input: ReservaInput): RespuestaReserva
+        actualizarReserva(id: ID, input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
         desactivarReserva(id: ID): RespuestaReserva
     }
 `
