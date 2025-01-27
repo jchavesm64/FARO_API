@@ -93,6 +93,7 @@ const Reservas_type = gql`
         insertarReserva(input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
         actualizarReserva(id: ID, input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
         desactivarReserva(id: ID): RespuestaReserva
+        checkIn(id: ID, reserva:ID,huespedes: [JSON!]!): RespuestaReserva
     }
 `
 

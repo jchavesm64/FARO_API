@@ -70,7 +70,7 @@ const ReservaHabitacionSchema = new mongoose.Schema({
     estado: {
         type: String,
         require: true,
-        enum: ['Pendiente', 'Cancelado', 'Activo'],
+        enum: ['Pendiente', 'Cancelado', 'CheckIn', 'CheckOut'],
         trim: true,
     }
 

@@ -163,6 +163,59 @@ export default {
                     message: error.message
                 };
             }
+        },
+        checkIn: async (_, { id, reserva, huespedes }) => {
+            try {
+                //console.log(id, reserva, huespedes);
+                const reserva_data = await Reservas.findOneAndUpdate(
+                    { _id: reserva },
+                    { estado: "Activa" },
+                    { new: true }
+                );
+
+                if (!reserva_data) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "Reserva no encontrada"
+                    };
+                }
+
+                const habitacionesAsociadas = await ReservaHabitacion.findById(id);
+                console.log('data', habitacionesAsociadas);
+                if (!habitacionesAsociadas || habitacionesAsociadas.length === 0) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "No se encontraron habitaciones asociadas a la reserva"
+                    };
+                }
+
+                await Habitaciones.findByIdAndUpdate(
+                    habitacionesAsociadas.habitacion,
+                    { estado: "Ocupada" },
+                    { new: true }
+                );
+
+                // Actualizar la lista de clientes en cada habitación asociada
+                habitacionesAsociadas.estado = "CheckIn";
+                habitacionesAsociadas.cliente = huespedes;
+                await habitacionesAsociadas.save();
+
+
+                return {
+                    estado: true,
+                    data: reserva_data,
+                    message: "Reserva actualizada a 'Activa' y habitaciones actualizadas a 'Ocupada' con la lista de huéspedes"
+                };
+            } catch (error) {
+                console.log(error);
+                return {
+                    estado: false,
+                    data: null,
+                    message: error.message
+                };
+            }
         }
     }
 };
