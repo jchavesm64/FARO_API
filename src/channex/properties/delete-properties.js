@@ -1,0 +1,37 @@
+import express from "express";
+
+const router = express.Router();
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const response = await fetch(
+      `${process.env.CHANNEX_BASE_URL}/properties/${req.params.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "user-api-key": process.env.CHANNEX_API_KEY,
+        },
+      }
+    );
+    const data = await response.json();
+
+    if (data.errors) {
+      const statusCodes = {
+        unauthorized: 401,
+        resource_not_found: 404,
+        validation_error: 422,
+      };
+
+      const statusCode = statusCodes[data.errors.code] || 400;
+      return res.status(statusCode).json(data);
+    }
+
+    return res.json(data);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+export default router;
