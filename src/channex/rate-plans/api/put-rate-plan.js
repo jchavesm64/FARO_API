@@ -4,11 +4,11 @@ const router = express.Router();
 
 router.put("/:id", async (req, res) => {
   try {
-    const response = await fetch(
+      const response = await fetch(
       `${process.env.CHANNEX_BASE_URL}/rate_plans/${req.params.id}`,
       {
-        method: "PUT",
-        headers: {
+          method: "PUT",
+          headers: {
           "Content-Type": "application/json",
           "user-api-key": process.env.CHANNEX_API_KEY,
         },
@@ -19,7 +19,7 @@ router.put("/:id", async (req, res) => {
     const data = await response.json();
 
     if (data.errors) {
-      const statusCodes = {
+        const statusCodes = {
         bad_request: 400,
         unauthorized: 401,
         validation_error: 422,

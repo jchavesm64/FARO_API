@@ -1,0 +1,103 @@
+type RatePlans {
+  id: ID
+  title: String
+  propertyId: String
+  roomTypeId: String
+  taxSetId: String
+  parentRatePlanId: String
+  childrenFee: String
+  infantFee: String
+  mealType: String
+  maxStay: [Int]
+  minStayArrival: [Int]
+  minStayThrough: [Int]
+  closedToArrival: [Boolean]
+  closedToDeparture: [Boolean]
+  stopSell: [Boolean]
+  options: [OccupancyOptions]
+  currency: String
+  sellMode: String
+  rateMode: String
+  inheritRate: Boolean
+  inheritClosedToArrival: Boolean
+  inheritClosedToDeparture: Boolean
+  inheritStopSell: Boolean
+  inheritMinStayArrival: Boolean
+  inheritMinStayThrough: Boolean
+  inheritMaxStay: Boolean
+  inheritMaxSell: Boolean
+  inheritMaxAvailability: Boolean
+  inheritAvailabilityOffset: Boolean
+  autoRateSettings: String
+}
+
+input RatePlanInput {
+  title: String
+  propertyId: String
+  roomTypeId: String
+  taxSetId: String
+  parentRatePlanId: String
+  childrenFee: String
+  infantFee: String
+  mealType: String
+  maxStay: [Int]
+  minStayArrival: [Int]
+  minStayThrough: [Int]
+  closedToArrival: [Boolean]
+  closedToDeparture: [Boolean]
+  stopSell: [Boolean]
+  options: [OccupancyOptionsInput]
+  currency: String
+  sellMode: String
+  rateMode: String
+  inheritRate: Boolean
+  inheritClosedToArrival: Boolean
+  inheritClosedToDeparture: Boolean
+  inheritStopSell: Boolean
+  inheritMinStayArrival: Boolean
+  inheritMinStayThrough: Boolean
+  inheritMaxStay: Boolean
+  inheritMaxSell: Boolean
+  inheritMaxAvailability: Boolean
+  inheritAvailabilityOffset: Boolean
+  autoRateSettings: String
+}
+
+type OccupancyOptions {
+  occupancy: Int
+  isPrimary: Boolean
+  derivedOption: DerivedOption
+  rate: Int
+}
+
+input OccupancyOptionsInput {
+  occupancy: Int
+  isPrimary: Boolean
+  derivedOption: DerivedOptionInput
+  rate: Int
+}
+
+type DerivedOption {
+  rate: [[String]]
+}
+
+input DerivedOptionInput {
+  rate: [[String]]
+}
+
+type RatePlanResponse {
+  status: Boolean
+  message: String
+  data: RatePlans
+}
+
+type Query {
+  getRatePlans: [RatePlans]
+  getRatePlanById(id: String): RatePlans
+}
+
+type Mutation {
+  createRatePlan(input: RatePlanInput): RatePlanResponse
+  updateRatePlan(id: String, input: RatePlanInput): RatePlanResponse
+  deleteRatePlan(id: String): RatePlanResponse
+}
