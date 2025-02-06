@@ -1,0 +1,43 @@
+type Availability {
+  ratePlanId: ID!
+  dates: [DateAvailability!]!
+}
+
+type DateAvailability {
+  date: String!
+  availability: Int!
+}
+
+input AvailabilityFilters {
+  date: String
+  startDate: String
+  endDate: String
+  propertyId: ID!
+}
+
+input DateAvailabilityInput {
+  values: [DateAvailabilityInputValue]
+}
+
+input DateAvailabilityInputValue {
+  propertyId: String
+  roomTypeId: String
+  date: String
+  dateFrom: String
+  dateTo: String
+  availability: Int
+}
+
+type AvailabilityResponse {
+  status: String
+  message: String
+  data: JSON
+}
+
+type Query {
+  getAvailability(filters: AvailabilityFilters!): [Availability!]!
+}
+
+type Mutation {
+  updateAvailability(input: DateAvailabilityInput): AvailabilityResponse
+}

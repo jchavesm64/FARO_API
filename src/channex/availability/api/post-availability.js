@@ -4,19 +4,14 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const response = await fetch(
-      `${process.env.CHANNEX_BASE_URL}/availability`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "user-api-key": process.env.CHANNEX_API_KEY,
-        },
-        body: JSON.stringify(req.body),
-      }
-    );
-
-    const data = await response.json();
+    const data = await fetch(`${process.env.CHANNEX_BASE_URL}/availability`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "user-api-key": process.env.CHANNEX_API_KEY,
+      },
+      body: JSON.stringify(req.body),
+    }).then((res) => res.json());
 
     if (data.errors) {
       const statusCodes = {
