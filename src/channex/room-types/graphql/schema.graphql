@@ -1,0 +1,96 @@
+enum RoomKind {
+  room
+  dorm
+}
+
+type Content {
+  description: String
+  photos: [Photos]
+}
+
+type Photos {
+  url: String
+  position: Int
+  description: String
+  author: String
+  kind: String
+}
+
+type ChannexType {
+  propertyId: String
+  roomTypeId: String
+  countOfRooms: Int
+  occAdults: Int
+  occChildren: Int
+  occInfants: Int
+  defaultOccupancy: Int
+
+  facilities: [JSON]
+  roomKind: RoomKind
+  capacity: Int
+  content: Content
+}
+
+input ChannexTypeInput {
+  propertyId: String
+  roomTypeId: String
+  countOfRooms: Int
+  occAdults: Int
+  occChildren: Int
+  occInfants: Int
+  defaultOccupancy: Int
+
+  facilities: [JSON]
+  roomKind: RoomKind
+  capacity: Int
+  content: ContentInput
+}
+
+type RoomType {
+  id: ID
+  nombre: String
+  descripcion: String
+  precioBase: Int
+  estado: String
+
+  channex: ChannexType
+}
+
+input RoomTypeInput {
+  nombre: String
+  descripcion: String
+  precioBase: Int
+  estado: String
+
+  channex: ChannexTypeInput
+}
+
+input ContentInput {
+  description: String
+  photos: [PhotoInput]
+}
+
+input PhotoInput {
+  url: String
+  position: Int
+  description: String
+  author: String
+  kind: String
+}
+
+type RoomTypeResponse {
+  status: Boolean
+  data: RoomType
+  message: String
+}
+
+type Query {
+  getRoomTypeById(id: String): RoomType
+  getRoomTypes: [RoomType]
+}
+
+type Mutation {
+  createRoomType(input: RoomTypeInput!): RoomTypeResponse
+  updateRoomType(id: String, input: RoomTypeInput!): RoomTypeResponse
+  disableRoomType(id: String): RoomTypeResponse
+}
