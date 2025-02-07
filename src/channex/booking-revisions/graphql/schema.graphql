@@ -34,7 +34,18 @@ type BookingRevisionResponse {
   message: String
 }
 
+type AckBookingRevisionResponse {
+  status: Boolean
+  data: JSON
+  message: String
+}
+
 type Query {
   getBookingRevisions: BookingRevisionResponse
+  getBookingRevisionsFeed: BookingRevisionResponse
   getBookingRevisionById(id: String!): BookingRevision
+}
+
+type Mutation {
+  ackBookingRevision(id: String!): AckBookingRevisionResponse
 }
