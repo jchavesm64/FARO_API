@@ -12,7 +12,6 @@ const comandas_type = gql`
         id: ID
         mesa: Mesa
         fecha: Date
-        observaciones: String
         preFactura: Boolean,
         estado: EstadoComanda,
         subcuentas: [Subcuenta]
@@ -21,7 +20,6 @@ const comandas_type = gql`
     input ComandaInput{
         mesa: ID
         fecha: Date
-        observaciones: String
         preFactura: Boolean,
         estado: EstadoComanda,
     }
@@ -34,6 +32,7 @@ const comandas_type = gql`
 
     type Query{
         obtenerComandas: [Comanda]
+        obtenerComandasPendientes: [Comanda]
         obtenerComandaById(id: ID): Comanda
         obtenerComandaPorMesa(id: ID): Comanda
     }

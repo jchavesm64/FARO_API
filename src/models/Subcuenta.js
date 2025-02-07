@@ -19,7 +19,7 @@ const SubcuentaSchema = new mongoose.Schema({
         require: true,
     },
     platillos: [{
-        id: {
+        menu: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Menu',
             require: true//Menu
@@ -29,10 +29,6 @@ const SubcuentaSchema = new mongoose.Schema({
             require: true,
             trim: true,
         },
-        cantidad: {
-            type: Number,
-            require: true,
-        },
         precio: {
             type: Number,
             require: true,
@@ -41,10 +37,15 @@ const SubcuentaSchema = new mongoose.Schema({
             type: Number,
             require: true,
         },
-        entregados: {
-            type: Number,
+        estado: {
+            type: String,
             require: true,
-            default: 0,
+            trim: true,
+        },
+        observaciones: {
+            type: String,
+            require: true,
+            trim: true
         },
     }],
     descuento: {
