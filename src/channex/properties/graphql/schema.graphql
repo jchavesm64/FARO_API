@@ -1,0 +1,103 @@
+type Property {
+  type: String
+  id: String
+  attributes: PropertyAttributes
+  relationships: JSON
+}
+
+type PropertyAttributes {
+  id: String
+  title: String
+  isActive: Boolean
+  email: String
+  phone: String
+  currency: String
+  country: String
+  state: String
+  city: String
+  address: String
+  zipCode: String
+  latitude: Float
+  longitude: Float
+  timezone: String
+  propertyType: String
+  content: ContentAttributes
+  logoUrl: String
+  website: String
+}
+
+type ContentAttributes {
+  description: String
+  photos: [photosAttributes]
+  importantInformation: String
+}
+
+type photosAttributes {
+  author: String
+  description: String
+  id: String
+  kind: String
+  position: Int
+  propertyId: String
+  roomTypeId: String
+  url: String
+}
+
+input PropertyInput {
+  title: String
+  isActive: Boolean
+  email: String
+  phone: String
+  currency: String
+  country: String
+  state: String
+  city: String
+  address: String
+  zipCode: String
+  latitude: Float
+  longitude: Float
+  timezone: String
+  propertyType: String
+  content: ContentInput
+  logoUrl: String
+  website: String
+}
+
+type PropertyOptions {
+  id: String
+  type: String
+  attributes: PropertyOptionsAttributes
+}
+
+type PropertyOptionsAttributes {
+  id: String
+  title: String
+  currency: String
+  minStayType: String
+  propertyType: String
+  groupIds: [String]
+}
+
+type PropertyReponse {
+  status: Boolean
+  data: [Property]
+  message: String
+}
+
+type PropertyOptionsReponse {
+  status: Boolean
+  data: [PropertyOptions]
+  message: String
+}
+
+type Query {
+  getProperties: PropertyReponse
+  #   getPropertyById(id: String!): PropertyReponse
+  getPropertiesOptions: PropertyOptionsReponse
+}
+
+type Mutation {
+  createProperty(input: PropertyInput): PropertyReponse
+  updateProperty(id: String!, input: PropertyInput): PropertyReponse
+  deleteProperty(id: String!): PropertyReponse
+}
