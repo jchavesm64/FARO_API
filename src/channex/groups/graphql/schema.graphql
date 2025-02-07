@@ -1,0 +1,38 @@
+type Groups {
+  id: String
+  type: String
+  attributes: GroupAttributes
+  relationships: JSON
+}
+
+type GroupAttributes {
+  id: String
+  title: String
+}
+
+input GroupInput {
+  group: TitleInput
+}
+
+input TitleInput {
+  title: String
+}
+
+type GroupResponse {
+  status: Boolean
+  data: [Groups]
+  message: String
+}
+
+
+type Query {
+  getGroups: GroupResponse
+}
+
+type Mutation {
+  createGroup(input: GroupInput): GroupResponse
+  updateGroup(id: String!, input: GroupInput): GroupResponse
+  deleteGroup(id: String!): GroupResponse
+  addPropertyToGroup(groupId: String!, propertyId: String!): GroupResponse
+  deletePropertyFromGroup(groupId: String!, propertyId: String!): GroupResponse
+}
