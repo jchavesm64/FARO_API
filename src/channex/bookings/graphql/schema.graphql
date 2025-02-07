@@ -1,0 +1,161 @@
+type Meta {
+  total: Int
+  page: Int
+  limit: Int
+}
+
+type Days {
+  date: String
+  amount: String
+}
+
+type Occupancy {
+  adults: Int
+  children: Int
+  infants: Int
+}
+
+type Room {
+  amount: String
+  checkinDate: String
+  checkoutDate: String
+  ratePlanId: String
+  roomTypeId: String
+  otaUniqueId: String
+  days: [Days]
+  occupancy: Occupancy
+}
+
+type Service {
+  type: String
+  totalPrice: String
+  pricePerUnit: String
+  priceMode: String
+  persons: Int
+  nights: Int
+  name: String
+}
+
+type Guarantee {
+  expirationDate: String
+  cvv: String
+  cardholderName: String
+  cardType: String
+  cardNumber: String
+}
+
+type Company {
+  title: String
+  number: String
+  numberType: String
+  type: String
+}
+
+type Customer {
+  zip: String
+  surname: String
+  phone: String
+  name: String
+  mail: String
+  language: String
+  country: String
+  city: String
+  address: String
+  company: Company
+}
+
+type Attributes {
+  id: String
+  propertyId: String
+  revisionId: String
+  uniqueId: String
+  otaReservationCode: String
+  otaName: String
+  status: String
+  rooms: [Room]
+  services: [Service]
+  guarantee: Guarantee
+  customer: Customer
+  occupancy: Occupancy
+  arrivalDate: String
+  departureDate: String
+  arrivalHour: String
+  amount: String
+  otaCommission: String
+  currency: String
+  notes: String
+  insertedAt: String
+}
+
+type BookingChannexType {
+  type: String
+  id: String
+  attributes: Attributes
+}
+
+type Booking {
+  id: ID
+  cliente: Cliente
+  usuario: Usuario
+  fechaReserva: String
+  numeroPersonas: NumeroPersonas
+  total: Float
+  serviciosGrupal: JSON
+  paquetes: JSON
+  tipo: String
+  tours: JSON
+  notas: JSON
+  metodoPago: String
+  politicas: String
+  ultimaModificacion: String
+  estado: String
+  channex: BookingChannexType
+}
+
+input BookingInput {
+  cliente: ID
+  usuario: ID
+  tipo: String
+  fechaReserva: String
+  numeroPersonas: NumeroPersonasInput
+  total: Float
+  serviciosGrupal: [JSON]
+  paquetes: [JSON]
+  tours: [JSON]
+  notas: [JSON]
+  metodoPago: String
+  politicas: String
+  ultimaModificacion: String
+  estado: String
+}
+
+input BookingRoomInput {
+  cliente: [clienteInput]
+  reserva: ID
+  habitacion: [ID]
+  fechaEntrada: String
+  fechaSalida: String
+  serviciosExtra: [JSON]
+  cargosPerdida: [cargosPerdidainput]
+  estado: String
+}
+
+input clienteInput {
+  nombre: String
+  nombreFacturacion: String
+  codigo: String
+  pais: String
+  telefono: String
+  correo: String
+}
+
+type BookingResponse {
+  status: Boolean
+  data: [Booking]
+  message: String
+}
+
+type Query {
+  getBookings: BookingResponse
+  getBookingById(id: String!): Booking
+}
