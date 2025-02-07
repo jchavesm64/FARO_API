@@ -1,0 +1,40 @@
+type BookingRevisionAttributes {
+  id: String
+  acknowledgeStatus: String
+  propertyId: String
+  bookingId: String
+  uniqueId: String
+  otaReservationCode: String
+  otaName: String
+  status: String
+  rooms: [Room]
+  services: [Service]
+  guarantee: Guarantee
+  customer: Customer
+  occupancy: Occupancy
+  arrivalDate: String
+  departureDate: String
+  arrivalHour: String
+  amount: String
+  otaCommission: String
+  currency: String
+  notes: String
+  insertedAt: String
+}
+
+type BookingRevision {
+  id: String
+  type: String
+  attributes: BookingRevisionAttributes
+}
+
+type BookingRevisionResponse {
+  status: Boolean
+  data: [BookingRevision]
+  message: String
+}
+
+type Query {
+  getBookingRevisions: BookingRevisionResponse
+  getBookingRevisionById(id: String!): BookingRevision
+}
