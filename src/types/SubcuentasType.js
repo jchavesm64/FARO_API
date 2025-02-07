@@ -9,22 +9,22 @@ const subcuentas_type = gql`
     }
     type Platillos{
         _id: ID
-        id: ID,
-        nombre: String,
-        precio: Number,
-        descuento: Number,
-        estado: PlatilloEstado,
-        observaciones: String,
+        id: ID
+        nombre: String
+        precio: Number
+        descuento: Number
+        estado: PlatilloEstado
+        observaciones: String
     }
 
     input PlatillosInput{
         _id: ID
-        id: ID,
-        nombre: String,
-        precio: Number,
-        descuento: Number,
-        estado: PlatilloEstado,
-        observaciones: String,
+        id: ID
+        nombre: String
+        precio: Number
+        descuento: Number
+        estado: PlatilloEstado
+        observaciones: String
     }
 
     type FormaPago{

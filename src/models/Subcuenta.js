@@ -19,7 +19,7 @@ const SubcuentaSchema = new mongoose.Schema({
         require: true,
     },
     platillos: [{
-        menu: {
+        id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Menu',
             require: true//Menu

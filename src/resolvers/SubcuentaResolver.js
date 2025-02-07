@@ -32,9 +32,18 @@ export default {
             try {
                 const { numero, comanda, platillos } = input;
                 const existe = await Subcuenta.findOne({ numero, comanda });
-        
                 if (existe) {
-                    existe.platillos.push(...platillos);
+                    platillos.forEach(platillo => {
+                        const index = existe.platillos.findIndex(p => p?._id == platillo?._id);
+
+                        if (index !== -1) {
+                            existe.platillos[index] = { ...existe.platillos[index], ...platillo };
+                        } else {
+                            const { _id, ..._platillo } = platillo;
+                            existe.platillos.push(_platillo);
+                        }
+                    });
+                    
                     const subcuenta = await existe.save();
         
                     return {
