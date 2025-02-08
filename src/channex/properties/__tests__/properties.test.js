@@ -25,7 +25,7 @@ describe("POST /api/v1/properties", () => {
       .post(baseUrl)
       .send({
         property: {
-          title: "API Test",
+          title: "API Test Two",
           currency: "CRC",
           group_id: "e8f72e75-6252-48bb-98c2-ec94abc2fc48",
         },

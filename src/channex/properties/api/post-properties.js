@@ -18,10 +18,11 @@ router.post("/", async (req, res) => {
       const statusCodes = {
         unauthorized: 401,
         validation_error: 422,
+        internal_server_error: 500,
       };
 
       const statusCode = statusCodes[data.errors.code] || 400;
-      return res.status(statusCode).json(data);
+      return res.status(statusCode).json(data.errors);
     }
 
     return res.status(201).json(data);

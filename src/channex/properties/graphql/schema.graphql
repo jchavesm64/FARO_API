@@ -17,13 +17,14 @@ type PropertyAttributes {
   city: String
   address: String
   zipCode: String
-  latitude: Float
-  longitude: Float
+  latitude: String
+  longitude: String
   timezone: String
   propertyType: String
   content: ContentAttributes
   logoUrl: String
   website: String
+  groupId: String
 }
 
 type ContentAttributes {
@@ -43,9 +44,9 @@ type photosAttributes {
   url: String
 }
 
+
 input PropertyInput {
   title: String
-  isActive: Boolean
   email: String
   phone: String
   currency: String
@@ -54,13 +55,16 @@ input PropertyInput {
   city: String
   address: String
   zipCode: String
-  latitude: Float
-  longitude: Float
+  latitude: String
+  longitude: String
   timezone: String
   propertyType: String
+  groupId: String
   content: ContentInput
   logoUrl: String
   website: String
+  facilities: [String]
+  settings: JSON
 }
 
 type PropertyOptions {

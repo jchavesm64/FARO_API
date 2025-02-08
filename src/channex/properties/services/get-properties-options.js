@@ -1,5 +1,5 @@
 import { endpoint } from "./commons";
-import { transformToGraphQL } from "../transforms";
+import { transformOptionsToGraphQL } from "../transforms";
 
 const getPropertiesOptions = async () => {
   try {
@@ -16,7 +16,7 @@ const getPropertiesOptions = async () => {
 
     return {
       status: true,
-      data: transformToGraphQL(jsonResponse.data),
+      data: transformToOptionsGraphQL(jsonResponse.data),
       message: "Properties fetched successfully",
     };
   } catch (error) {
