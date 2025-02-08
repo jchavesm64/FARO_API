@@ -36,14 +36,15 @@ export default {
                     platillos.forEach(platillo => {
                         const index = existe.platillos.findIndex(p => p?._id == platillo?._id);
 
-                        if (index !== -1) {
+                        if (index !== -1 && platillo._id !== null) {
                             existe.platillos[index] = { ...existe.platillos[index], ...platillo };
                         } else {
                             const { _id, ..._platillo } = platillo;
                             existe.platillos.push(_platillo);
                         }
                     });
-                    
+
+                    existe.estado = "Pendiente";
                     const subcuenta = await existe.save();
         
                     return {
@@ -52,7 +53,11 @@ export default {
                         message: "Subcuenta actualizada con éxito"
                     };
                 }
-    
+                
+                input.platillos = input.platillos.map(platillo => {
+                    const { _id, ...rest } = platillo;
+                    return rest;
+                });
                 const subcuenta = new Subcuenta(input);
                 const result = await subcuenta.save();
         
