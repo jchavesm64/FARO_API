@@ -1,81 +1,88 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const reservaHabitacion_type = gql`
-    type ReservaHabitacion{
-        id:ID
-        cliente: [clientes]
-        reserva: Reserva
-        habitacion: Habitaciones
-        fechaEntrada: String
-        fechaSalida: String
-        serviciosExtra: JSON
-        cargosPerdida: [cargosPerdida]
-        estado: String
-    }
+  type ReservaHabitacion {
+    id: ID
+    cliente: [clientes]
+    reserva: Reserva
+    habitacion: Habitaciones
+    fechaEntrada: String
+    fechaSalida: String
+    cargosHabitacion: [JSON]
+    serviciosExtra: JSON
+    cargosPerdida: [cargosPerdida]
+    estado: String
+  }
 
-    input ReservaHabitacionInput{
-        cliente: [clienteInput]
-        habitacion: [ID]
-        reserva: ID
-        fechaEntrada: String
-        fechaSalida: String
-        serviciosExtra: [JSON]
-        cargosPerdida: [cargosPerdidainput]
-        estado: String
-    }
+  input ReservaHabitacionInput {
+    cliente: [clienteInput]
+    habitacion: [ID]
+    reserva: ID
+    fechaEntrada: String
+    fechaSalida: String
+    cargosHabitacion: JSON
+    serviciosExtra: [JSON]
+    cargosPerdida: [cargosPerdidainput]
+    estado: String
+  }
 
-    type RespuestaReservaHabitacion{
-        estado: Boolean
-        data: ReservaHabitacion
-        message: String
-    }
+  type RespuestaReservaHabitacion {
+    estado: Boolean
+    data: ReservaHabitacion
+    message: String
+  }
 
-    type clientes {
-        nombre: String
-        nombreFacturacion: String
-        codigo: String
-        pais: String
-        telefono: String
-        correo: String
-    }
-    
-    type cargosPerdida {
-        descripcion: String
-        precio: Number
-        cantidad: Number
-        precioTotal: Number
-    }
+  type clientes {
+    nombre: String
+    nombreFacturacion: String
+    codigo: String
+    pais: String
+    telefono: String
+    correo: String
+  }
 
-    input cargosPerdidainput {
-        descripcion: String
-        precio: Number
-        cantidad: Number
-        precioTotal: Number
-    }
+  type cargosPerdida {
+    descripcion: String
+    precio: Number
+    cantidad: Number
+    precioTotal: Number
+  }
 
-    input serviciosExtra {
-        room: ID
-        service: [ID]
-    }
+  input cargosPerdidainput {
+    descripcion: String
+    precio: Number
+    cantidad: Number
+    precioTotal: Number
+  }
 
-    input clienteInput {
-        nombre: String
-        nombreFacturacion: String
-        codigo: String
-        pais: String
-        telefono: String
-        correo: String
-    }
+  input serviciosExtra {
+    room: ID
+    service: [ID]
+  }
 
-    type Query{
-        obtenerReservaHabitaciones:[ReservaHabitacion]
-        obtenerReservaHabitacion(id:ID): [ReservaHabitacion]
-    }
+  input clienteInput {
+    nombre: String
+    nombreFacturacion: String
+    codigo: String
+    pais: String
+    telefono: String
+    correo: String
+  }
 
-    type Mutation{
-        insertarReservaHabitacion(input: ReservaHabitacionInput):RespuestaReservaHabitacion
-        actualizarReservaHabitacion(id: ID, input: ReservaHabitacionInput):RespuestaReservaHabitacion
-        desactivarReservaHabitacion(id: ID):RespuestaReservaHabitacion
-    }
-`
+  type Query {
+    obtenerReservaHabitaciones: [ReservaHabitacion]
+    obtenerReservaHabitacion(id: ID): [ReservaHabitacion]
+  }
+
+  type Mutation {
+    insertarReservaHabitacion(
+      input: ReservaHabitacionInput
+    ): RespuestaReservaHabitacion
+    actualizarReservaHabitacion(
+      id: ID
+      input: ReservaHabitacionInput
+    ): RespuestaReservaHabitacion
+    desactivarReservaHabitacion(id: ID): RespuestaReservaHabitacion
+  }
+`;
 module.exports = reservaHabitacion_type;
