@@ -30,41 +30,52 @@ export default {
     Mutation: {
         insertarSubcuenta: async (_, { input }) => {
             try {
-                const { numero, comanda } = input;
+                const { numero, comanda, platillos } = input;
                 const existe = await Subcuenta.findOne({ numero, comanda });
                 if (existe) {
-                    //update subcuenta
-                    input.platillos.forEach(platillo => {
-                        const matchingPlatillo = existe.platillos.find(p => p.id == platillo.id);
-                        if (matchingPlatillo) {
-                            platillo["entregados"] = platillo.cantidad > matchingPlatillo.entregados ?
-                                matchingPlatillo.entregados :
-                                platillo.cantidad;
+                    platillos.forEach(platillo => {
+                        const index = existe.platillos.findIndex(p => p?._id == platillo?._id);
+
+                        if (index !== -1 && platillo._id !== null) {
+                            existe.platillos[index] = { ...existe.platillos[index], ...platillo };
+                        } else {
+                            const { _id, ..._platillo } = platillo;
+                            existe.platillos.push(_platillo);
                         }
                     });
-                    const subcuenta = await Subcuenta.findOneAndUpdate({ numero, comanda }, input, { new: true });
+
+                    existe.estado = "Pendiente";
+                    const subcuenta = await existe.save();
+        
                     return {
                         estado: true,
                         data: subcuenta,
-                        message: "Subcuenta actualizada con exito"
+                        message: "Subcuenta actualizada con éxito"
                     };
                 }
+                
+                input.platillos = input.platillos.map(platillo => {
+                    const { _id, ...rest } = platillo;
+                    return rest;
+                });
                 const subcuenta = new Subcuenta(input);
                 const result = await subcuenta.save();
+        
                 return {
                     estado: true,
                     data: result,
-                    message: "Subcuenta creada con exito"
+                    message: "Subcuenta creada con éxito"
                 };
-
+        
             } catch (error) {
                 return {
                     estado: false,
                     data: null,
-                    message: error.message || "Ocurrio un error inesperado al guardar la subcuenta"
+                    message: error.message || "Ocurrió un error inesperado al guardar la subcuenta"
                 };
             }
         },
+        
         actualizarSubcuenta: async (_, { id, input }) => {
             try {
                 const subcuenta = await Subcuenta.findOneAndUpdate({ _id: id }, input, { new: true });
@@ -81,83 +92,80 @@ export default {
                 };
             }
         },
-        actualizarEntregados: async (_, { input }) => {
+        actualizarEntregados: async (_, { id }) => {
             try {
-                const { subcuenta: subcuentaId, platillo: platilloId, entregados } = input;
-                const subcuenta = await Subcuenta.findOne(
-                    { _id: subcuentaId, "platillos.id": platilloId },
-                    { "platillos.$": 1 }
-                );
-
-                if (!subcuenta) {
-                    throw new Error('Subcuenta o Platillo no encontrado');
-                }
-
-                const platillo = subcuenta.platillos[0];
-
-                const newEntregados = platillo.entregados + entregados;
-                if (newEntregados > platillo.cantidad) {
-                    throw new Error(`No puedes entregar más de ${platillo.cantidad} unidades. Ya se han entregado ${platillo.entregados}.`);
-                }
-
-                const updatedSubcuenta = await Subcuenta.findOneAndUpdate(
-                    { _id: subcuentaId, "platillos.id": platilloId },
-                    {
-                        $inc: { "platillos.$.entregados": entregados }
-                    },
-                    { new: true }
-                );
-
-                const menuLineas = await MenuLinea.find({ menu: platilloId });
-
-                if (!menuLineas.length) {
-                    throw new Error('No se encontraron algunas materias primas de este platillo');
-                }
-
-                for (const linea of menuLineas) {
-                    const { producto, cantidad } = linea;
-                    const totalARestar = cantidad * entregados;
-
-                    const materiaPrima = await MateriasPrimas.findOne({ _id: producto });
-
-                    if (!materiaPrima) {
-                        throw new Error(`No se encontró la materia prima con id ${producto}`);
-                    }
-
-                    materiaPrima.existencias <= 0 ? materiaPrima.existencias = 0 : materiaPrima.existencias -= totalARestar;
-
-                    await materiaPrima.save();
-                }
-
-                return {
-                    estado: true,
-                    data: updatedSubcuenta,
-                    message: "Cantidad de platillos entregados actualizada con éxito"
-                };
-            } catch (error) {
-                console.log(error);
+            const subcuenta = await Subcuenta.findById(id);
+                
+            if (!subcuenta) {
+                throw new Error("Subcuenta no encontrada");
+            }
+        
+            if (subcuenta.estado === "Entregado") {
                 return {
                     estado: false,
                     data: null,
-                    message: error.message || "Ocurrió un error inesperado al actualizar la cantidad de platillos entregados"
+                    message: "La subcuenta ya se encuentra en estado Entregado",
                 };
             }
+        
+            const updatedSubcuenta = await Subcuenta.findByIdAndUpdate(
+                id,
+                {
+                    $set: {
+                        "platillos.$[elem].estado": "Entregado",
+                        estado: "Entregado",
+                    },
+                },
+                {
+                    arrayFilters: [{ "elem.estado": "Pendiente" }],
+                    new: true
+                }
+            );
+        
+            return {
+                estado: true,
+                data: updatedSubcuenta,
+                message: "Subcuenta y platillos actualizados a Entregado con éxito",
+            };
+            } catch (error) {
+            console.error(error);
+            return {
+                estado: false,
+                data: null,
+                message: error.message || "Error al actualizar el estado de la subcuenta y los platillos",
+            };
+            }
         },
-        desactivarSubcuenta: async (_, { id }) => {
+        
+        desactivarPlatillo: async (_, { subcuentaId, platilloId }) => {
             try {
-                const subcuenta = await Subcuenta.findOneAndUpdate({ _id: id }, { estado: 'Cancelado' }, { new: true });
+                const subcuenta = await Subcuenta.findOneAndUpdate(
+                    { _id: subcuentaId, "platillos._id": platilloId }, 
+                    { $set: { "platillos.$.estado": "Cancelado" } }, 
+                    { new: true } 
+                );
+        
+                if (!subcuenta) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "No se encontró la subcuenta o el platillo"
+                    };
+                }
+        
                 return {
                     estado: true,
                     data: subcuenta,
-                    message: "Subcuenta desactivada con exito"
+                    message: "Platillo cancelado con éxito"
                 };
             } catch (error) {
                 return {
                     estado: false,
                     data: null,
-                    message: error.message || "Ocurrio un error inesperado al desactivar la subcuenta"
+                    message: error.message || "Ocurrió un error inesperado al cancelar el platillo"
                 };
             }
         }
+        
     }
 }

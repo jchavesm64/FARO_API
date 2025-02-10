@@ -1,23 +1,30 @@
 const { gql } = require('apollo-server-express');
 
 const subcuentas_type = gql`
-
+    enum PlatilloEstado{
+        Pendiente
+        Pagado
+        Cancelado
+        Entregado
+    }
     type Platillos{
-        id: ID,
-        cantidad: Number,
-        nombre: String,
-        precio: Number,
-        descuento: Number,
-        entregados: Number,
+        _id: ID
+        id: ID
+        nombre: String
+        precio: Number
+        descuento: Number
+        estado: PlatilloEstado
+        observaciones: String
     }
 
     input PlatillosInput{
-        id: ID,
-        cantidad: Number,
-        nombre: String,
-        precio: Number,
-        descuento: Number,
-        entregados: Number,
+        _id: ID
+        id: ID
+        nombre: String
+        precio: Number
+        descuento: Number
+        estado: PlatilloEstado
+        observaciones: String
     }
 
     type FormaPago{
@@ -86,8 +93,9 @@ const subcuentas_type = gql`
     type Mutation{
         insertarSubcuenta(input: SubcuentaInput): RespuestaSubcuenta
         actualizarSubcuenta(id: ID, input: SubcuentaInput): RespuestaSubcuenta
-        actualizarEntregados(input: actualizarEntregadosInput): RespuestaSubcuenta
+        actualizarEntregados(id: ID, input: actualizarEntregadosInput): RespuestaSubcuenta
         desactivarSubcuenta(id: ID): RespuestaSubcuenta
+        desactivarPlatillo(subcuentaId: ID, platilloId: ID): RespuestaSubcuenta
     }
 
 `;

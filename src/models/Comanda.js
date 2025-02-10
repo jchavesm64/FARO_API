@@ -10,11 +10,6 @@ const ComandaSchema = new mongoose.Schema({
         type: Date,
         require: true,
     },
-    observaciones: {
-        type: String,
-        require: true,
-        trim: true
-    },
     preFactura: {
         type: Boolean,
         require: true,
