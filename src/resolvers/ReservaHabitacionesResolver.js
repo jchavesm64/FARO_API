@@ -8,10 +8,6 @@ export default {
       try {
         const reservaHabitacion = await ReservaHabitacion.find()
           .populate({
-            path: "serviciosExtra",
-            model: "servicios",
-          })
-          .populate({
             path: "habitacion",
             model: "habitacion",
           })
@@ -19,32 +15,6 @@ export default {
             path: "reserva",
             model: "reservas",
             populate: [
-              {
-                path: "serviciosGrupal",
-                model: "servicios",
-              },
-              // {
-              //   path: "paquetes",
-              //   model: "paquete",
-              //   populate: [
-              //     {
-              //       path: "servicios",
-              //       model: "servicios",
-              //     },
-              //     {
-              //       path: "tours",
-              //       model: "tour",
-              //     },
-              //     {
-              //       path: "temporadas",
-              //       model: "temporada",
-              //     },
-              //   ],
-              // },
-              {
-                path: "tours",
-                model: "tour",
-              },
               {
                 path: "cliente",
                 model: "clientes",
@@ -113,18 +83,6 @@ export default {
     },
     actualizarReservaHabitacion: async (_, { id, input }) => {
       try {
-        console.log("input", input);
-        if (input?.serviciosExtra) {
-          input.serviciosExtra = input.serviciosExtra.map((servicio) => ({
-            ...servicio,
-            id: servicio.id,
-          }));
-        }
-        if (input.habitacion) {
-          console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-          console.log(input);
-          console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        }
         const reservaHabitacion = await ReservaHabitacion.findByIdAndUpdate(
           { _id: id },
           { $set: input },
