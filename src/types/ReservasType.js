@@ -52,7 +52,7 @@ const Reservas_type = gql`
         habitacion: [ID]
         fechaEntrada: String
         fechaSalida: String
-        serviciosExtra: [serviciosExtra]
+        serviciosExtra: [JSON]
         cargosPerdida: [cargosPerdidainput]
         estado: String
     }
@@ -91,8 +91,9 @@ const Reservas_type = gql`
 
     type Mutation {
         insertarReserva(input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
-        actualizarReserva(id: ID, input: ReservaInput): RespuestaReserva
+        actualizarReserva(id: ID, input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
         desactivarReserva(id: ID): RespuestaReserva
+        checkIn(id: ID, reserva:ID,huespedes: [JSON!]!): RespuestaReserva
     }
 `
 

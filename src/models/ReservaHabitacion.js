@@ -49,9 +49,8 @@ const ReservaHabitacionSchema = new mongoose.Schema({
         trim: true
     },
     serviciosExtra: [{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: 'servicios '
+        type: mongoose.Schema.Types.Mixed,
+        trim: true
     }],
     cargosPerdida: [{
         descripcion: {
@@ -71,7 +70,7 @@ const ReservaHabitacionSchema = new mongoose.Schema({
     estado: {
         type: String,
         require: true,
-        enum: ['Pendiente', 'Cancelado', 'Activo'],
+        enum: ['Pendiente', 'Cancelado', 'CheckIn', 'CheckOut'],
         trim: true,
     }
 
