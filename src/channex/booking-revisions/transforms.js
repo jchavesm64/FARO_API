@@ -73,6 +73,6 @@ export const transformToGraphQL = (apiPayload) => {
   if (Array.isArray(apiPayload)) {
     return apiPayload.map((payload) => transform(payload.attributes));
   } else {
-    return transform(apiPayload.attributes);
+    return [transform(apiPayload.attributes)];
   }
 };

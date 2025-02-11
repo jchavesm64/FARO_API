@@ -43,7 +43,7 @@ type AckBookingRevisionResponse {
 type Query {
   getBookingRevisions: BookingRevisionResponse
   getBookingRevisionsFeed: BookingRevisionResponse
-  getBookingRevisionById(id: String!): BookingRevision
+  getBookingRevisionById(id: String!): BookingRevisionResponse
 }
 
 type Mutation {
