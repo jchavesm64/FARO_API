@@ -55,6 +55,12 @@ const ReservaHabitacionSchema = new mongoose.Schema({
       trim: true,
     },
   ],
+  toursExtra: [
+    {
+      type: mongoose.Schema.Types.Mixed,
+      trim: true,
+    },
+  ],
   cargosPerdida: [
     {
       descripcion: {
