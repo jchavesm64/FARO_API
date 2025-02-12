@@ -94,6 +94,7 @@ const Reservas_type = gql`
         actualizarReserva(id: ID, input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
         desactivarReserva(id: ID): RespuestaReserva
         checkIn(id: ID, reserva:ID,huespedes: [JSON!]!): RespuestaReserva
+        updateState(id:ID): RespuestaReserva
     }
 `
 

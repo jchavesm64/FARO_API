@@ -173,6 +173,7 @@ export default {
                     { new: true }
                 );
 
+
                 if (!reserva_data) {
                     return {
                         estado: false,
@@ -182,7 +183,6 @@ export default {
                 }
 
                 const habitacionesAsociadas = await ReservaHabitacion.findById(id);
-                console.log('data', habitacionesAsociadas);
                 if (!habitacionesAsociadas || habitacionesAsociadas.length === 0) {
                     return {
                         estado: false,
@@ -209,7 +209,24 @@ export default {
                     message: "Reserva actualizada a 'Activa' y habitaciones actualizadas a 'Ocupada' con la lista de huéspedes"
                 };
             } catch (error) {
-                console.log(error);
+                return {
+                    estado: false,
+                    data: null,
+                    message: error.message
+                };
+            }
+        },
+        updateState: async (_, { id }) => {
+            try {
+                await Reservas.findOneAndUpdate({ _id: id }, { estado: "Completada" }, { new: true });
+                return {
+                    estado: true,
+                    data: null,
+                    message: "Reserva actualizado correctamente"
+                };
+
+            } catch (error) {
+                console.log(error)
                 return {
                     estado: false,
                     data: null,
