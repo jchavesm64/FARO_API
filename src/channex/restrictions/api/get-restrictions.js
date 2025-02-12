@@ -2,23 +2,36 @@ import express from "express";
 
 const router = express.Router();
 
-/**
- * TODO: After creating Rate Plans endpoints
- */
-router.post("/", async (req, res) => {
+router.post("/filters", async (req, res) => {
+  const { filters } = req.body;
+  const { date, startDate, endDate, propertyId, restrictions } = filters || {};
+  const params = new URLSearchParams();
+
+  const formattedFilters = {
+    "filter[date]": date,
+    "filter[date][gte]": startDate,
+    "filter[date][lte]": endDate,
+    "filter[property_id]": propertyId,
+    "filter[restrictions]": restrictions,
+  };
+
+  Object.entries(formattedFilters).forEach(([key, value]) => {
+    if (value) {
+      params.append(key, value);
+    }
+  });
+
   try {
     const response = await fetch(
-      `${process.env.CHANNEX_BASE_URL}/restrictions`,
+      `${process.env.CHANNEX_BASE_URL}/restrictions?${params}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           "user-api-key": process.env.CHANNEX_API_KEY,
         },
-        body: JSON.stringify(req.body),
       }
     );
-
     const data = await response.json();
     if (data.errors) {
       const statusCodes = {

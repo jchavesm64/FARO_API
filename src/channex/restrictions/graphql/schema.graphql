@@ -1,0 +1,57 @@
+type Restriction {
+  restriction: String
+  value: String
+}
+
+type DateRestrictions {
+  date: String
+  restrictions: [Restriction]
+}
+
+type RatePlan {
+  ratePlanId: ID!
+  dateRestrictions: [DateRestrictions]
+}
+
+input RatePlanFilter {
+  propertyId: ID!
+  date: String
+  startDate: String
+  endDate: String
+  restrictions: String
+}
+
+type RestrictionsResponse {
+  status: Boolean
+  message: String
+  data: JSON
+}
+
+type Query {
+  getRatePlansRestrictions(filters: RatePlanFilter): RestrictionsResponse
+}
+
+input RestrictionInput {
+  values: [RestrictionValues]
+}
+
+input RestrictionValues {
+    propertyId: ID!
+    ratePlanId: ID!
+    date: String
+    dateFrom: String
+    dateTo: String
+    days: [String]
+    rate: Int
+    minStayArrival: Int
+    minStayThrough: Int
+    minStay: Int
+    maxStay: Int
+    closedToArrival: Int
+    closedToDeparture: Int
+    stopSell: Int
+}
+
+type Mutation {
+  updateRestrictions(input: [RestrictionInput]): RestrictionsResponse
+}

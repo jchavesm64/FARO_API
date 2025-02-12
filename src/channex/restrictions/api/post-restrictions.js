@@ -2,35 +2,20 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const { date, startDate, endDate, propertyId, restrictions } = req.query;
-  const params = new URLSearchParams();
-
-  const filters = {
-    "filter[date]": date,
-    "filter[date][gte]": startDate,
-    "filter[date][lte]": endDate,
-    "filter[property_id]": propertyId,
-    "filter[restrictions]": restrictions,
-  };
-
-  Object.entries(filters).forEach(([key, value]) => {
-    if (value) {
-      params.append(key, value);
-    }
-  });
-
+router.post("/", async (req, res) => {
   try {
     const response = await fetch(
-      `${process.env.CHANNEX_BASE_URL}/restrictions?${params}`,
+      `${process.env.CHANNEX_BASE_URL}/restrictions`,
       {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           "user-api-key": process.env.CHANNEX_API_KEY,
         },
+        body: JSON.stringify(req.body),
       }
     );
+
     const data = await response.json();
     if (data.errors) {
       const statusCodes = {
