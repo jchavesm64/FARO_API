@@ -222,14 +222,15 @@ export default {
                     subcuentas: subcuentas.map(subcuenta => ({
                         ...subcuenta.toObject(),
                         id: subcuenta._id.toString(),
+                        platillos: subcuenta.platillos.filter(platillo => platillo.estado !== 'Cancelado')
                     })),
                 };
             } catch (error) {
                 return error;
             }
         },
-    },
-    Mutation: {
+        },
+        Mutation: {
         insertarComanda: async (_, { input }) => {
             try {
                 const { mesa } = input;
