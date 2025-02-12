@@ -1,0 +1,29 @@
+type Facilities {
+  id: ID
+  nombre: String
+  descripcion: String
+  estado: String
+}
+
+input FacilitiesInput {
+  nombre: String
+  descripcion: String
+  estado: String
+}
+
+type FacilitiesResponse {
+  status: Boolean
+  data: Facilities
+  message: String
+}
+
+type Query {
+  getFacilities: [Facilities]
+  getFacilitiesById(id: ID): Facilities
+}
+
+type Mutation {
+  createFacilities(input: FacilitiesInput): FacilitiesResponse
+  updateFacilities(id: ID, input: FacilitiesInput): FacilitiesResponse
+  disableFacilities(id: ID): FacilitiesResponse
+}
