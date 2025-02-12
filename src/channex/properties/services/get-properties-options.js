@@ -16,7 +16,7 @@ const getPropertiesOptions = async () => {
 
     return {
       status: true,
-      data: transformToOptionsGraphQL(jsonResponse.data),
+      data: transformOptionsToGraphQL(jsonResponse.data),
       message: "Properties fetched successfully",
     };
   } catch (error) {

@@ -83,5 +83,5 @@ export {
     Servicios,
     Habitaciones,
     Reservas,
-    ReservaHabitacion
+    ReservaHabitacion, 
 };

@@ -53,6 +53,23 @@ const transformPropertyOptions = (property) => {
   };
 };
 
+const transformGroup = (group) => {
+  const { attributes } = group;
+
+  return {
+    id: group.id,
+    type: group.type,
+    attributes: {
+      id: attributes.id,
+      title: attributes.title,
+      currency: attributes.currency,
+      minStayType: attributes.min_stay_type,
+      propertyType: attributes.property_type_group,
+      groupIds: Array.isArray(attributes.group_ids) ? attributes.group_ids : [],
+    },
+  };
+};
+
 export const transformOptionsToGraphQL = (data) => {
   if (Array.isArray(data)) {
     return data.map(transformGroup);
