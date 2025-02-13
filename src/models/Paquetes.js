@@ -26,6 +26,10 @@ const PaqueteSchema = new mongoose.Schema({
     require: true,
     trim: true,
   },
+  cavis: {
+    type: String,
+    trim: true,
+  },
   servicios: [
     {
       type: mongoose.Schema.Types.Mixed,
