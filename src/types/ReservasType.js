@@ -73,12 +73,36 @@ const Reservas_type = gql`
     precioTotal: Number
   }
 
-    type Mutation {
-        insertarReserva(input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
-        actualizarReserva(id: ID, input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
-        desactivarReserva(id: ID): RespuestaReserva
-        checkIn(id: ID, reserva:ID,huespedes: [JSON!]!): RespuestaReserva
-        updateState(id:ID): RespuestaReserva
-    }
-`
+  type RespuestaReserva {
+    estado: Boolean
+    data: Reserva
+    message: String
+  }
+
+  input serviciosExtra {
+    room: ID
+    service: [ID]
+  }
+
+  type Query {
+    obtenerReservas: [Reserva]
+    obtenerReserva(id: ID): Reserva
+  }
+
+  type Mutation {
+    insertarReserva(
+      input: ReservaInput
+      bookingRoom: ReservaHabitacionInput
+    ): RespuestaReserva
+    actualizarReserva(
+      id: ID
+      input: ReservaInput
+      bookingRoom: ReservaHabitacionInput
+    ): RespuestaReserva
+    desactivarReserva(id: ID): RespuestaReserva
+    checkIn(id: ID, reserva: ID, huespedes: [JSON!]!): RespuestaReserva
+    updateState(id: ID): RespuestaReserva
+  }
+`;
+
 module.exports = Reservas_type;
