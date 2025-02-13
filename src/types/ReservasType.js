@@ -37,6 +37,7 @@ const Reservas_type = gql`
     numeroPersonas: NumeroPersonasInput
     total: Number
     serviciosGrupal: [JSON]
+    serviciosExternos: [JSON]
     paquetes: [JSON]
     tours: [JSON]
     notas: [JSON]
@@ -99,6 +100,7 @@ const Reservas_type = gql`
       input: ReservaInput
       bookingRoom: ReservaHabitacionInput
     ): RespuestaReserva
+    actualizarReservaInfo(id: ID, input: ReservaInput): RespuestaReserva
     desactivarReserva(id: ID): RespuestaReserva
     checkIn(id: ID, reserva: ID, huespedes: [JSON!]!): RespuestaReserva
     updateState(id: ID): RespuestaReserva

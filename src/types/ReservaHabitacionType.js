@@ -10,6 +10,7 @@ const reservaHabitacion_type = gql`
     fechaSalida: String
     cargosHabitacion: [JSON]
     serviciosExtra: JSON
+    serviciosExternos: JSON
     toursExtra: JSON
     cargosPerdida: [cargosPerdida]
     estado: String
@@ -23,6 +24,7 @@ const reservaHabitacion_type = gql`
     fechaSalida: String
     cargosHabitacion: JSON
     serviciosExtra: [JSON]
+    serviciosExternos: [JSON]
     toursExtra: [JSON]
     cargosPerdida: [cargosPerdidainput]
     estado: String

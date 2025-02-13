@@ -87,9 +87,10 @@ export default {
     },
     actualizarReservaHabitacion: async (_, { id, input }) => {
       try {
+        console.log(input);
         const reservaHabitacion = await ReservaHabitacion.findByIdAndUpdate(
           { _id: id },
-          input,
+          { $set: input },
           { new: true }
         );
         return {
