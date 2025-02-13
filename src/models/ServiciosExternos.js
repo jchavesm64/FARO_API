@@ -26,4 +26,4 @@ const ServiciosExternosSchema = new mongoose.Schema({
     }
 
 })
-module.exports = mongoose.model('servicios', ServiciosExternosSchema);
+module.exports = mongoose.model('ServiciosExternos', ServiciosExternosSchema);
