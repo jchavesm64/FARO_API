@@ -44,6 +44,10 @@ export default {
                 path: "comodidades", // Popular la relación comodidades
                 model: "comodidades",
               },
+              {
+                path: "tours",
+                model: "tour",
+              },
             ],
           })
           .exec();
@@ -85,7 +89,7 @@ export default {
       try {
         const reservaHabitacion = await ReservaHabitacion.findByIdAndUpdate(
           { _id: id },
-          { $set: input },
+          input,
           { new: true }
         );
         return {
@@ -94,7 +98,6 @@ export default {
           message: "Reserva actualizada",
         };
       } catch (error) {
-        console.log("reservaHabitacionError", error);
         return {
           estado: false,
           data: null,

@@ -68,7 +68,7 @@ const ReservasSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        enum: ['Confirmada', 'Cancelada', 'Completada', 'Pendiente', 'Pagada'],
+        enum: ['Confirmada', 'Cancelada', 'Completada', 'Pendiente', 'Pagada', 'Activa'],
         require: true,
         trim: true,
         default: 'Pendiente'
