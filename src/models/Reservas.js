@@ -1,77 +1,98 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ReservasSchema = new mongoose.Schema({
-    cliente: {
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: 'clientes'
+  cliente: {
+    type: mongoose.Schema.Types.ObjectId,
+    require: true,
+    ref: "clientes",
+  },
+  tipo: {
+    type: String,
+    enum: ["IN", "GR", "BL", "OS"],
+    trim: true,
+  },
+  fechaReserva: {
+    type: Date,
+    require: true,
+    trim: true,
+  },
+  numeroPersonas: {
+    adulto: {
+      type: Number,
+      require: true,
+      min: 1,
     },
-    tipo: {
-        type: String,
-        enum: ['IN', 'GR', 'BL', 'OS'],
-        trim: true,
+    ninos: {
+      type: Number,
+      require: true,
+      min: 0,
     },
-    fechaReserva: {
-        type: Date,
-        require: true,
-        trim: true
+  },
+  total: {
+    type: Number,
+    require: true,
+  },
+  serviciosGrupal: [
+    {
+      type: mongoose.Schema.Types.Mixed,
+      trim: true,
     },
-    numeroPersonas: {
-        adulto: {
-            type: Number,
-            require: true,
-            min: 1
-        },
-        ninos: {
-            type: Number,
-            require: true,
-            min: 0
-        }
+  ],
+  serviciosExternos: [
+    {
+      type: mongoose.Schema.Types.Mixed,
+      trim: true,
     },
-    total: {
-        type: Number,
-        require: true
+  ],
+  paquetes: [
+    {
+      type: mongoose.Schema.Types.Mixed,
+      trim: true,
     },
-    serviciosGrupal: [{
-        type: mongoose.Schema.Types.Mixed,
-        trim: true
-    }],
-    paquetes: [{
-        type: mongoose.Schema.Types.Mixed,
-        trim: true
-    }],
-    tours: [{
-        type: mongoose.Schema.Types.Mixed,
-        trim: true
-    }],
-    notas: [{
-        type: mongoose.Schema.Types.Mixed,
-        trim: true
-    }],
-    metodoPago: {
-        type: String,
-        require: true
+  ],
+  tours: [
+    {
+      type: mongoose.Schema.Types.Mixed,
+      trim: true,
     },
-    politicas: {
-        type: String,
-        require: true
+  ],
+  notas: [
+    {
+      type: mongoose.Schema.Types.Mixed,
+      trim: true,
     },
-    ultimamModificacion: {
-        type: String,
-        require: true,
-        default: Date.now
-    },
-    usuario: {
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: 'usuarios'
-    },
-    estado: {
-        type: String,
-        enum: ['Confirmada', 'Cancelada', 'Completada', 'Pendiente', 'Pagada', 'Activa'],
-        require: true,
-        trim: true,
-        default: 'Pendiente'
-    }
-})
-module.exports = mongoose.model('reservas', ReservasSchema);
+  ],
+  metodoPago: {
+    type: String,
+    require: true,
+  },
+  politicas: {
+    type: String,
+    require: true,
+  },
+  ultimamModificacion: {
+    type: String,
+    require: true,
+    default: Date.now,
+  },
+  usuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    require: true,
+    ref: "usuarios",
+  },
+  estado: {
+    type: String,
+    enum: [
+      "Confirmada",
+      "Cancelada",
+      "Completada",
+      "Pendiente",
+      "Pagada",
+      "Activa",
+    ],
+    require: true,
+    trim: true,
+    default: "Pendiente",
+  },
+});
+module.exports = mongoose.model("reservas", ReservasSchema);

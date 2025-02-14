@@ -1,101 +1,110 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const Reservas_type = gql`
-    type Reserva {
-        id: ID
-        cliente: Cliente
-        usuario: Usuario
-        fechaReserva: String
-        numeroPersonas: NumeroPersonas
-        total: Float
-        serviciosGrupal: JSON
-        paquetes: JSON
-        tipo: String
-        tours: JSON
-        notas: JSON
-        metodoPago: String
-        politicas: String
-        ultimaModificacion: String
-        estado: String
-    }
+  type Reserva {
+    id: ID
+    cliente: Cliente
+    usuario: Usuario
+    fechaReserva: String
+    numeroPersonas: NumeroPersonas
+    total: Float
+    serviciosGrupal: JSON
+    paquetes: JSON
+    tipo: String
+    tours: JSON
+    notas: JSON
+    metodoPago: String
+    politicas: String
+    ultimaModificacion: String
+    estado: String
+  }
 
-    type NumeroPersonas {
-        adulto: Number
-        ninos: Number
-    }
+  type NumeroPersonas {
+    adulto: Number
+    ninos: Number
+  }
 
-    input NumeroPersonasInput {
-        adulto: Number
-        ninos: Number
-    }
+  input NumeroPersonasInput {
+    adulto: Number
+    ninos: Number
+  }
 
-    input ReservaInput {
-        cliente: ID
-        usuario: ID
-        tipo: String
-        fechaReserva: String
-        numeroPersonas: NumeroPersonasInput
-        total: Number
-        serviciosGrupal: [JSON]
-        paquetes: [JSON]
-        tours: [JSON]
-        notas: [JSON]
-        metodoPago: String
-        politicas: String
-        ultimaModificacion: String
-        estado: String
-    }
-    
-    input ReservaHabitacionInput {
-        cliente: [clienteInput]
-        reserva: ID
-        habitacion: [ID]
-        fechaEntrada: String
-        fechaSalida: String
-        serviciosExtra: [JSON]
-        cargosPerdida: [cargosPerdidainput]
-        estado: String
-    }
-        
-    input clienteInput {
-        nombre: String
-        nombreFacturacion: String
-        codigo: String
-        pais: String
-        telefono: String
-        correo: String
-    }
-    
-    input cargosPerdidainput {
-        descripcion: String
-        precio: Number
-        cantidad: Number
-        precioTotal: Number
-    }
+  input ReservaInput {
+    cliente: ID
+    usuario: ID
+    tipo: String
+    fechaReserva: String
+    numeroPersonas: NumeroPersonasInput
+    total: Number
+    serviciosGrupal: [JSON]
+    serviciosExternos: [JSON]
+    paquetes: [JSON]
+    tours: [JSON]
+    notas: [JSON]
+    metodoPago: String
+    politicas: String
+    ultimaModificacion: String
+    estado: String
+  }
 
-    type RespuestaReserva {
-        estado: Boolean
-        data: Reserva
-        message: String
-    }
+  input ReservaHabitacionInput {
+    cliente: [clienteInput]
+    reserva: ID
+    habitacion: [ID]
+    fechaEntrada: String
+    fechaSalida: String
+    serviciosExtra: [JSON]
+    cargosPerdida: [cargosPerdidainput]
+    estado: String
+  }
 
-    input serviciosExtra {
-        room: ID
-        service: [ID]
-    }
+  input clienteInput {
+    nombre: String
+    nombreFacturacion: String
+    codigo: String
+    pais: String
+    telefono: String
+    correo: String
+  }
 
-    type Query {
-        obtenerReservas: [Reserva]
-        obtenerReserva(id: ID): Reserva
-    }
+  input cargosPerdidainput {
+    descripcion: String
+    precio: Number
+    cantidad: Number
+    precioTotal: Number
+  }
 
-    type Mutation {
-        insertarReserva(input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
-        actualizarReserva(id: ID, input: ReservaInput, bookingRoom: ReservaHabitacionInput): RespuestaReserva
-        desactivarReserva(id: ID): RespuestaReserva
-        checkIn(id: ID, reserva:ID,huespedes: [JSON!]!): RespuestaReserva
-        updateState(id:ID): RespuestaReserva
-    }
-`
+  type RespuestaReserva {
+    estado: Boolean
+    data: Reserva
+    message: String
+  }
+
+  input serviciosExtra {
+    room: ID
+    service: [ID]
+  }
+
+  type Query {
+    obtenerReservas: [Reserva]
+    obtenerReserva(id: ID): Reserva
+  }
+
+  type Mutation {
+    insertarReserva(
+      input: ReservaInput
+      bookingRoom: ReservaHabitacionInput
+    ): RespuestaReserva
+    actualizarReserva(
+      id: ID
+      input: ReservaInput
+      bookingRoom: ReservaHabitacionInput
+    ): RespuestaReserva
+    actualizarReservaInfo(id: ID, input: ReservaInput): RespuestaReserva
+    desactivarReserva(id: ID): RespuestaReserva
+    checkIn(id: ID, reserva: ID, huespedes: [JSON!]!): RespuestaReserva
+    updateState(id: ID): RespuestaReserva
+  }
+`;
 
 module.exports = Reservas_type;
