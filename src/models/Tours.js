@@ -19,7 +19,7 @@ const TourSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  cavis: {
+  cabys: {
     type: String,
     trim: true,
   },

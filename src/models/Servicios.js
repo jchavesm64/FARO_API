@@ -14,7 +14,7 @@ const ServiciosSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
-  cavis: {
+  cabys: {
     type: String,
   },
   tipo: {

@@ -20,7 +20,7 @@ const HabitacionSchema = new mongoose.Schema({
     require: true,
     trim: true,
   },
-  cavis: {
+  cabys: {
     type: String,
     trim: true,
   },
