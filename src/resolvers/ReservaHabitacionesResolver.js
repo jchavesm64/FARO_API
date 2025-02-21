@@ -10,6 +10,12 @@ export default {
           .populate({
             path: "habitacion",
             model: "habitacion",
+            populate: [
+              {
+                path: "tipoHabitacion",
+                model: "tipoHabitacion",
+              },
+            ],
           })
           .populate({
             path: "reserva",
@@ -87,7 +93,6 @@ export default {
     },
     actualizarReservaHabitacion: async (_, { id, input }) => {
       try {
-        console.log(input);
         const reservaHabitacion = await ReservaHabitacion.findByIdAndUpdate(
           { _id: id },
           { $set: input },
