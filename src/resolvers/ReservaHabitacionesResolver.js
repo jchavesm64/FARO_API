@@ -8,12 +8,14 @@ export default {
       try {
         const reservaHabitacion = await ReservaHabitacion.find()
           .populate({
-            path: "serviciosExtra",
-            model: "servicios",
-          })
-          .populate({
             path: "habitacion",
             model: "habitacion",
+            populate: [
+              {
+                path: "tipoHabitacion",
+                model: "tipoHabitacion",
+              },
+            ],
           })
           .populate({
             path: "reserva",
@@ -91,14 +93,14 @@ export default {
     },
     actualizarReservaHabitacion: async (_, { id, input }) => {
       try {
-        const resrevaHabitacion = await ReservaHabitacion.findByIdAndUpdate(
+        const reservaHabitacion = await ReservaHabitacion.findByIdAndUpdate(
           { _id: id },
-          input,
+          { $set: input },
           { new: true }
         );
         return {
           estado: true,
-          data: resrevaHabitacion,
+          data: reservaHabitacion,
           message: "Reserva actualizada",
         };
       } catch (error) {
