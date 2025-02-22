@@ -19,9 +19,11 @@ const TourSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  cabys: {
-    type: String,
-    trim: true,
+  porcentajeGanancia: {
+    type: Number,
+    require: true,
+    min: 0,
+    max: 100,
   },
   precio: {
     type: Number,
@@ -29,6 +31,23 @@ const TourSchema = new mongoose.Schema({
   },
   descripcion: {
     type: String,
+    trim: true,
+  },
+  diasDisponibles: {
+    type: String,
+    enum: [
+      "Lunes",
+      "Martes",
+      "Miercoles",
+      "Jueves",
+      "Viernes",
+      "Sabado",
+      "Domingo",
+    ],
+    require: true,
+  },
+  proveedor: {
+    type: mongoose.Schema.Types.Mixed,
     trim: true,
   },
   estado: {
