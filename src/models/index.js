@@ -40,6 +40,7 @@ import Subcuenta from './Subcuenta';
 import TipoMetodoPago from './TipoMetodoPago';
 import TipoMenu from './TipoMenu';
 import TipoPlatillo from './TipoPlatillo';
+import MovimientosRestaurante from './MovimientosRestaurante';
 
 export {
     Rol,
@@ -83,5 +84,6 @@ export {
     Servicios,
     Habitaciones,
     Reservas,
-    ReservaHabitacion
+    ReservaHabitacion,
+    MovimientosRestaurante
 };

@@ -100,6 +100,7 @@ const materia_prima_type = gql`
     type Mutation{
         insertarMateriaPrima(input:MateriaPrimaInput): RespuestaMateriaPrima
         actualizarMateriaPrima(id:ID, input:MateriaPrimaInput): RespuestaMateriaPrima
+        actualizarExistenciasMateriaPrima(id:ID, cantidad:Number): RespuestaMateriaPrima
         desactivarMateriaPrima(id:ID): RespuestaMateriaPrima
     }
 `;

@@ -136,6 +136,59 @@ export default {
             };
             }
         },
+
+        actualizarPagados: async (_, { id, input }) => {
+            try {
+            const subcuenta = await Subcuenta.findById(id);
+        
+            if (!subcuenta) {
+                throw new Error("Subcuenta no encontrada");
+            }
+        
+            if (subcuenta.estado === "Pagado") {
+                return {
+                estado: false,
+                data: null,
+                message: "La subcuenta ya se encuentra en estado Pagado",
+                };
+            }
+        
+            const platillosIds = input.map(platillo => platillo._id);
+        
+            const updatedSubcuenta = await Subcuenta.findByIdAndUpdate(
+                id,
+                {
+                $set: {
+                    "platillos.$[elem].estado": "Pagado",
+                },
+                },
+                {
+                arrayFilters: [{ "elem._id": { $in: platillosIds } }],
+                new: true
+                }
+            );
+    
+            const allPlatillosPagados = updatedSubcuenta.platillos.every(platillo => platillo.estado === "Pagado");
+        
+            if (allPlatillosPagados) {
+                updatedSubcuenta.estado = "Pagado";
+                await updatedSubcuenta.save();
+            }
+        
+            return {
+                estado: true,
+                data: updatedSubcuenta,
+                message: "Platillos actualizados correctamente",
+            };
+            } catch (error) {
+            console.error(error);
+            return {
+                estado: false,
+                data: null,
+                message: error.message || "Error al actualizar los platillos",
+            };
+            }
+        },
         
         desactivarPlatillo: async (_, { subcuentaId, platilloId }) => {
             try {

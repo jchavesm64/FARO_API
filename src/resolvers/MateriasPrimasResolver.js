@@ -107,6 +107,31 @@ export default {
                 };
             }
         },
+        actualizarExistenciasMateriaPrima: async (_, { id, cantidad }) => {
+                try {
+                    const materia = await MateriasPrimas.findById(id);
+                    if (!materia) {
+                        return {
+                        estado: false,
+                        data: null,
+                        message: "Materia prima no encontrada"
+                        };
+                    }
+                    materia.existencias -= cantidad;
+                    const updatedMateria = await materia.save();
+                    return {
+                        estado: true,
+                        data: updatedMateria,
+                        message: "Las existencias de la materia prima fueron actualizadas con éxito"
+                    };
+                } catch (error) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "Ocurrió un error al actualizar las existencias de la materia prima"
+                };
+            }
+        },
         desactivarMateriaPrima: async (_, { id }) => {
             try {
                 const materia = await MateriasPrimas.findOneAndUpdate({ _id: id }, { estado: "INACTIVO" }, { new: true });

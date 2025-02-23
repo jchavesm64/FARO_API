@@ -23,7 +23,6 @@ export default {
                 } else {
                     const movimiento = new MovimientosRestaurante(input);
                     const result = await movimiento.save();
-                    console.log(result);
                     return {
                         estado: true,
                         data: result,
