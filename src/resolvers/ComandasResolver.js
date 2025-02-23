@@ -280,6 +280,31 @@ export default {
                 };
             }
         },
+        finalizarComanda: async (_, { id }) => {
+            try {
+                const comanda = await Comanda.findOneAndUpdate({ _id: id }, { estado: 'FINALIZADA' }, { new: true });
+                if (!comanda) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "Ocurrio un error al finalizar la comanda"
+                    };
+                }
+                return {
+                    estado: true,
+                    data: comanda,
+                    message: "La comanda finalizadas con éxito"
+                };
+            } catch (error) {
+                console.log(error);
+                return {
+                    estado: false,
+                    data: null,
+                    message: error.message || "Ocurrio un error inesperado al finalizar la comanda"
+                };
+            }
+
+        },
         desactivarComanda: async (_, { id }) => {
             try {
                 const comanda = await Comanda.findOneAndUpdate({ _id: id }, { estado: 'DESCARTADA' }, { new: true });
