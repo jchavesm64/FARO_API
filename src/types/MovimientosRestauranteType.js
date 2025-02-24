@@ -16,6 +16,7 @@ const movimientos_restaurante_type = gql`
     }
 
     type MovimientoRestaurante {
+        _id: ID
         fecha: Date!
         cliente: ID
         nombreFacturacion: String!
@@ -61,6 +62,7 @@ const movimientos_restaurante_type = gql`
 
     type Query {
         obtenerMovimientosRestaurante: [MovimientoRestaurante]
+        obtenerMovimientosPorFecha(fechaInicio:Date, fechaFin:Date): [MovimientoRestaurante]
     }
 
     type Mutation {

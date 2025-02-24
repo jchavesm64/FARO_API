@@ -9,6 +9,14 @@ export default {
                 return error;
             }
         },
+        obtenerMovimientosPorFecha: async (_, { fechaInicio, fechaFin }) => {
+            try {
+                const movements = await MovimientosRestaurante.find({}).where('fecha').gt(fechaInicio).lt(fechaFin);
+                return movements;
+            } catch (error) {
+                return error;
+            }
+        },
     },
     Mutation: {
         insertarMovimientoRestaurante: async (_, { input }) => {
