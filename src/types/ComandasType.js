@@ -40,6 +40,7 @@ const comandas_type = gql`
     type Mutation{
         insertarComanda(input: ComandaInput): RespuestaComanda
         actualizarComanda(id: ID, input: ComandaInput): RespuestaComanda
+        finalizarComanda(id: ID): RespuestaComanda
         desactivarComanda(id: ID): RespuestaComanda
     }
 

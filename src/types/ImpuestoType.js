@@ -14,6 +14,7 @@ const impuesto_type = gql`
     type Query{
         obtenerImpuestos: [Impuesto]
         obtenerImpuestoById(id:ID):Impuesto
+        obtenerImpuestoByNombre(nombre:String):Impuesto
     }
 
     input ImpuestoInput{

@@ -222,14 +222,15 @@ export default {
                     subcuentas: subcuentas.map(subcuenta => ({
                         ...subcuenta.toObject(),
                         id: subcuenta._id.toString(),
+                        platillos: subcuenta.platillos.filter(platillo => platillo.estado !== 'Cancelado')
                     })),
                 };
             } catch (error) {
                 return error;
             }
         },
-    },
-    Mutation: {
+        },
+        Mutation: {
         insertarComanda: async (_, { input }) => {
             try {
                 const { mesa } = input;
@@ -278,6 +279,31 @@ export default {
                     message: error.message || "Ocurrio un error inesperado al actualizar la comanda"
                 };
             }
+        },
+        finalizarComanda: async (_, { id }) => {
+            try {
+                const comanda = await Comanda.findOneAndUpdate({ _id: id }, { estado: 'FINALIZADA' }, { new: true });
+                if (!comanda) {
+                    return {
+                        estado: false,
+                        data: null,
+                        message: "Ocurrio un error al finalizar la comanda"
+                    };
+                }
+                return {
+                    estado: true,
+                    data: comanda,
+                    message: "La comanda finalizadas con éxito"
+                };
+            } catch (error) {
+                console.log(error);
+                return {
+                    estado: false,
+                    data: null,
+                    message: error.message || "Ocurrio un error inesperado al finalizar la comanda"
+                };
+            }
+
         },
         desactivarComanda: async (_, { id }) => {
             try {

@@ -94,6 +94,7 @@ const subcuentas_type = gql`
         insertarSubcuenta(input: SubcuentaInput): RespuestaSubcuenta
         actualizarSubcuenta(id: ID, input: SubcuentaInput): RespuestaSubcuenta
         actualizarEntregados(id: ID, input: actualizarEntregadosInput): RespuestaSubcuenta
+        actualizarPagados(id: ID, input: [PlatillosInput]): RespuestaSubcuenta
         desactivarSubcuenta(id: ID): RespuestaSubcuenta
         desactivarPlatillo(subcuentaId: ID, platilloId: ID): RespuestaSubcuenta
     }

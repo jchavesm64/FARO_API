@@ -26,6 +26,14 @@ export default {
             } catch (error) {
                 return error;
             }
+        },
+        obtenerImpuestoByNombre: async (_, { nombre }) => {
+            try {
+                const impuesto = await Impuesto.findOne({ nombre });
+                return impuesto;
+            } catch (error) {
+                return error;
+            }
         }
     },
     Mutation: {
